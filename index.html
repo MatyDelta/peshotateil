@@ -2,293 +2,336 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#04040a">
+<meta name="apple-mobile-web-app-capable" content="yes">
 <title>PeshoTaTeil – Livraison Express</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;600;700;900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
-:root{--pink:#ff006e;--blue:#00f5ff;--purple:#bf00ff;--gold:#ffd700;--green:#39ff14;--bg:#04040a;--card:#08080f;--card2:#0d0d1a;}
-*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
-body{background:var(--bg);color:#fff;font-family:'Rajdhani',sans-serif;overflow-x:hidden;}
-body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.07) 3px,rgba(0,0,0,0.07) 4px);pointer-events:none;z-index:9998;}
-.bg-grid{position:fixed;inset:0;background-image:linear-gradient(rgba(0,245,255,0.035) 1px,transparent 1px),linear-gradient(90deg,rgba(0,245,255,0.035) 1px,transparent 1px);background-size:70px 70px;animation:gridScroll 25s linear infinite;pointer-events:none;z-index:0;}
+/* ── VARIABLES ── */
+:root{
+  --pk:#ff006e;--bl:#00f5ff;--pu:#bf00ff;--go:#ffd700;--gr:#39ff14;
+  --bg:#04040a;--card:#09090f;--card2:#0e0e1c;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html{scroll-behavior:smooth;font-size:16px;}
+body{background:var(--bg);color:#fff;font-family:'Rajdhani',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+
+/* ── PERF: réduit animations sur mobile ── */
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important;}}
+
+/* ── SCANLINES léger ── */
+body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.05) 3px,rgba(0,0,0,0.05) 4px);pointer-events:none;z-index:9990;will-change:auto;}
+
+/* ── GRID BG : désactivé sur mobile pour perf ── */
+.bg-grid{position:fixed;inset:0;background-image:linear-gradient(rgba(0,245,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,245,255,0.03) 1px,transparent 1px);background-size:70px 70px;animation:gridScroll 30s linear infinite;pointer-events:none;z-index:0;will-change:transform;}
 @keyframes gridScroll{to{transform:translateY(70px);}}
-.blob{position:fixed;border-radius:50%;pointer-events:none;z-index:0;filter:blur(80px);animation:blobDrift 18s ease-in-out infinite;}
-.b1{width:600px;height:600px;top:-100px;left:-150px;background:radial-gradient(circle,rgba(255,0,110,0.12),transparent 70%);}
-.b2{width:700px;height:700px;bottom:-200px;right:-150px;background:radial-gradient(circle,rgba(0,245,255,0.1),transparent 70%);animation-delay:-6s;}
-.b3{width:400px;height:400px;top:40%;left:40%;background:radial-gradient(circle,rgba(191,0,255,0.1),transparent 70%);animation-delay:-12s;}
-@keyframes blobDrift{0%,100%{transform:translate(0,0);}33%{transform:translate(30px,-20px);}66%{transform:translate(-20px,30px);}}
+@media(max-width:768px){.bg-grid{display:none;}}
 
-/* LOGO */
-.logo{font-family:'Bebas Neue',sans-serif;font-size:1.9rem;letter-spacing:5px;display:flex;align-items:baseline;gap:0;animation:logoFlicker 6s infinite;user-select:none;text-decoration:none;}
-.lP{color:var(--pink);text-shadow:0 0 18px var(--pink),0 0 40px rgba(255,0,110,0.4);}
+/* ── BLOBS : réduits sur mobile ── */
+.blob{position:fixed;border-radius:50%;pointer-events:none;z-index:0;filter:blur(60px);will-change:transform;}
+.b1{width:400px;height:400px;top:-100px;left:-100px;background:radial-gradient(circle,rgba(255,0,110,0.1),transparent 70%);}
+.b2{width:500px;height:500px;bottom:-150px;right:-100px;background:radial-gradient(circle,rgba(0,245,255,0.08),transparent 70%);}
+@media(max-width:768px){.blob{filter:blur(40px);}.b1{width:250px;height:250px;}.b2{width:300px;height:300px;}}
+
+/* ── LOGO ── */
+.logo{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:4px;display:flex;align-items:baseline;text-decoration:none;user-select:none;}
+.lP{color:var(--pk);text-shadow:0 0 15px var(--pk);}
 .lN{color:#fff;}
-.lT1{color:var(--gold);text-shadow:0 0 18px var(--gold),0 0 40px rgba(255,215,0,0.4);}
-.lA{color:#fff;}
-.lT2{color:var(--blue);text-shadow:0 0 18px var(--blue),0 0 40px rgba(0,245,255,0.4);}
+.lT1{color:var(--go);text-shadow:0 0 15px var(--go);}
+.lT2{color:var(--bl);text-shadow:0 0 15px var(--bl);}
 .lEIL{color:#fff;}
-.ltag{font-family:'Orbitron',sans-serif;font-size:0.38rem;letter-spacing:3px;color:rgba(255,255,255,0.3);margin-left:10px;align-self:flex-end;margin-bottom:4px;}
-@keyframes logoFlicker{0%,92%,100%{opacity:1;}93%{opacity:.6;}94%{opacity:1;}95%{opacity:.4;}96%{opacity:1;}}
+.ltag{font-family:'Orbitron',sans-serif;font-size:.32rem;letter-spacing:2px;color:rgba(255,255,255,0.28);margin-left:8px;align-self:flex-end;margin-bottom:3px;}
+@media(max-width:480px){.logo{font-size:1.4rem;letter-spacing:2px;}.ltag{display:none;}}
 
-/* NAV */
-nav{position:fixed;top:0;width:100%;z-index:1000;padding:0 2.5rem;height:68px;display:flex;align-items:center;justify-content:space-between;gap:1rem;background:rgba(4,4,10,0.9);backdrop-filter:blur(24px);border-bottom:1px solid rgba(0,245,255,0.15);box-shadow:0 1px 40px rgba(0,245,255,0.06);}
-.nav-center{display:flex;gap:2.5rem;align-items:center;}
-.nav-center a{color:rgba(255,255,255,0.5);text-decoration:none;font-size:0.82rem;letter-spacing:2.5px;text-transform:uppercase;font-weight:600;transition:color .25s,text-shadow .25s;}
-.nav-center a:hover{color:var(--blue);text-shadow:0 0 14px var(--blue);}
-.nav-right{display:flex;gap:.75rem;align-items:center;}
-.pill-pts{display:flex;align-items:center;gap:.5rem;background:linear-gradient(135deg,rgba(255,0,110,.15),rgba(191,0,255,.15));border:1px solid rgba(255,0,110,.5);color:var(--pink);padding:6px 16px;border-radius:50px;font-family:'Orbitron',sans-serif;font-size:.68rem;letter-spacing:2px;cursor:pointer;text-shadow:0 0 10px var(--pink);box-shadow:0 0 14px rgba(255,0,110,.2);transition:all .3s;}
-.pill-pts:hover{box-shadow:0 0 28px rgba(255,0,110,.5);}
-.btn-cart-nav{display:flex;align-items:center;gap:.55rem;background:rgba(0,245,255,.08);border:1px solid rgba(0,245,255,.5);color:var(--blue);padding:6px 20px;border-radius:6px;font-family:'Orbitron',sans-serif;font-size:.68rem;letter-spacing:2px;cursor:pointer;text-shadow:0 0 10px var(--blue);box-shadow:0 0 14px rgba(0,245,255,.18);transition:all .3s;position:relative;}
-.btn-cart-nav:hover{background:rgba(0,245,255,.15);box-shadow:0 0 28px rgba(0,245,255,.4);}
-.cart-count{background:var(--pink);color:#fff;border-radius:50%;width:17px;height:17px;font-size:.6rem;display:flex;align-items:center;justify-content:center;font-family:'Rajdhani';font-weight:700;box-shadow:0 0 8px var(--pink);transition:transform .2s;}
+/* ── NAV ── */
+nav{position:fixed;top:0;width:100%;z-index:1000;padding:0 1.5rem;height:60px;display:flex;align-items:center;justify-content:space-between;gap:.8rem;background:rgba(4,4,10,0.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,245,255,0.12);}
+.nav-center{display:flex;gap:2rem;align-items:center;}
+.nav-center a{color:rgba(255,255,255,0.5);text-decoration:none;font-size:.78rem;letter-spacing:2px;text-transform:uppercase;font-weight:600;transition:color .2s;}
+.nav-center a:hover{color:var(--bl);}
+@media(max-width:768px){.nav-center{display:none;}}
+.nav-right{display:flex;gap:.6rem;align-items:center;}
+.pill-pts{display:flex;align-items:center;gap:.4rem;background:rgba(255,0,110,.12);border:1px solid rgba(255,0,110,.45);color:var(--pk);padding:7px 14px;border-radius:50px;font-family:'Orbitron',sans-serif;font-size:.62rem;letter-spacing:1px;cursor:pointer;white-space:nowrap;-webkit-tap-highlight-color:transparent;touch-action:manipulation;}
+.btn-cart-nav{display:flex;align-items:center;gap:.45rem;background:rgba(0,245,255,.08);border:1px solid rgba(0,245,255,.45);color:var(--bl);padding:7px 16px;border-radius:6px;font-family:'Orbitron',sans-serif;font-size:.62rem;letter-spacing:1px;cursor:pointer;white-space:nowrap;touch-action:manipulation;}
+.cart-count{background:var(--pk);color:#fff;border-radius:50%;min-width:17px;height:17px;padding:0 4px;font-size:.58rem;display:flex;align-items:center;justify-content:center;font-weight:700;transition:transform .2s;}
 .cart-count.bump{transform:scale(1.5);}
 
-/* HERO */
-.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:110px 2rem 5rem;z-index:1;}
-.hero-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:900px;height:900px;border-radius:50%;background:radial-gradient(circle,rgba(191,0,255,.12) 0%,rgba(0,245,255,.06) 45%,transparent 70%);animation:heroBreath 4s ease-in-out infinite;pointer-events:none;}
-@keyframes heroBreath{0%,100%{transform:translate(-50%,-50%) scale(1);}50%{transform:translate(-50%,-50%) scale(1.08);opacity:.75;}}
-.hero-eyebrow{font-family:'Orbitron',sans-serif;font-size:.65rem;letter-spacing:7px;color:var(--blue);text-shadow:0 0 18px var(--blue);margin-bottom:1.8rem;animation:eyeFlicker 7s infinite;}
-@keyframes eyeFlicker{0%,87%,89%,91%,100%{opacity:1;}88%,90%{opacity:.25;}}
-.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(4.5rem,13vw,11rem);line-height:.88;letter-spacing:10px;margin-bottom:1.2rem;}
-.hero-title .t1{display:block;color:#fff;letter-spacing:12px;}
-.hero-title .t2{display:block;color:transparent;-webkit-text-stroke:2px var(--pink);text-shadow:0 0 50px var(--pink);animation:t2glow 2.5s ease-in-out infinite alternate;}
-@keyframes t2glow{from{text-shadow:0 0 30px var(--pink);}to{text-shadow:0 0 60px var(--pink),0 0 120px var(--purple);}}
-.hero-sub{font-size:1.15rem;color:rgba(255,255,255,.5);letter-spacing:3px;margin-bottom:2rem;}
-.hero-sub b{color:var(--gold);font-weight:700;}
-.live-badge{display:inline-flex;align-items:center;gap:.8rem;background:rgba(57,255,20,.07);border:1px solid rgba(57,255,20,.5);border-radius:50px;padding:10px 28px;color:var(--green);font-family:'Orbitron',sans-serif;font-size:.72rem;letter-spacing:3px;text-shadow:0 0 14px var(--green);box-shadow:0 0 28px rgba(57,255,20,.15);margin-bottom:3rem;animation:liveBreath 2s ease-in-out infinite;}
-.live-dot{width:8px;height:8px;background:var(--green);border-radius:50%;box-shadow:0 0 12px var(--green);animation:liveDot 1s ease-in-out infinite;}
+/* ── HERO ── */
+.hero{position:relative;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 1.5rem 4rem;z-index:1;}
+.hero-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(191,0,255,.1) 0%,rgba(0,245,255,.05) 45%,transparent 70%);pointer-events:none;}
+@media(max-width:768px){.hero-glow{width:320px;height:320px;}}
+.hero-eyebrow{font-family:'Orbitron',sans-serif;font-size:.55rem;letter-spacing:4px;color:var(--bl);margin-bottom:1.5rem;padding:0 1rem;}
+@media(max-width:480px){.hero-eyebrow{font-size:.45rem;letter-spacing:2px;}}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(3.8rem,16vw,10rem);line-height:.88;letter-spacing:8px;margin-bottom:1rem;}
+.hero-title .t1{display:block;color:#fff;}
+.hero-title .t2{display:block;color:transparent;-webkit-text-stroke:2px var(--pk);text-shadow:0 0 40px var(--pk);}
+@media(max-width:480px){.hero-title{letter-spacing:4px;}.hero-title .t2{-webkit-text-stroke:1px var(--pk);}}
+.hero-sub{font-size:clamp(.9rem,3vw,1.1rem);color:rgba(255,255,255,.48);letter-spacing:2px;margin-bottom:1.8rem;padding:0 1rem;}
+.hero-sub b{color:var(--go);}
+.live-badge{display:inline-flex;align-items:center;gap:.7rem;background:rgba(57,255,20,.07);border:1px solid rgba(57,255,20,.45);border-radius:50px;padding:9px 22px;color:var(--gr);font-family:'Orbitron',sans-serif;font-size:.6rem;letter-spacing:2px;margin-bottom:2.5rem;}
+@media(max-width:480px){.live-badge{font-size:.5rem;padding:8px 16px;letter-spacing:1px;}}
+.live-dot{width:7px;height:7px;background:var(--gr);border-radius:50%;animation:liveDot 1s ease-in-out infinite;flex-shrink:0;}
 @keyframes liveDot{0%,100%{opacity:1;}50%{opacity:.1;}}
-@keyframes liveBreath{0%,100%{box-shadow:0 0 28px rgba(57,255,20,.15);}50%{box-shadow:0 0 50px rgba(57,255,20,.32);}}
-.hero-cta{display:flex;gap:1.2rem;flex-wrap:wrap;justify-content:center;margin-bottom:5rem;}
-.btn-pp{background:linear-gradient(135deg,var(--pink),var(--purple));border:none;color:#fff;padding:15px 42px;font-family:'Orbitron',sans-serif;font-size:.8rem;letter-spacing:3px;cursor:pointer;text-transform:uppercase;border-radius:4px;box-shadow:0 0 30px rgba(255,0,110,.45);transition:all .3s;}
-.btn-pp:hover{transform:translateY(-3px);box-shadow:0 8px 50px rgba(255,0,110,.7);}
-.btn-po{background:transparent;border:1px solid rgba(0,245,255,.6);color:var(--blue);padding:15px 42px;font-family:'Orbitron',sans-serif;font-size:.8rem;letter-spacing:3px;cursor:pointer;text-transform:uppercase;border-radius:4px;text-shadow:0 0 12px var(--blue);box-shadow:0 0 18px rgba(0,245,255,.15);transition:all .3s;}
-.btn-po:hover{background:rgba(0,245,255,.1);box-shadow:0 0 36px rgba(0,245,255,.4);transform:translateY(-3px);}
-.stats-row{display:grid;grid-template-columns:repeat(4,1fr);width:100%;max-width:860px;border:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.02);}
-.stat{padding:1.6rem 1.2rem;text-align:center;border-right:1px solid rgba(255,255,255,.06);transition:background .3s;}
+.hero-cta{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;margin-bottom:4rem;}
+@media(max-width:480px){.hero-cta{flex-direction:column;align-items:stretch;padding:0 1.5rem;width:100%;}}
+.btn-pp{background:linear-gradient(135deg,var(--pk),var(--pu));border:none;color:#fff;padding:14px 36px;font-family:'Orbitron',sans-serif;font-size:.75rem;letter-spacing:2px;cursor:pointer;border-radius:6px;box-shadow:0 0 24px rgba(255,0,110,.4);touch-action:manipulation;}
+.btn-po{background:transparent;border:1px solid rgba(0,245,255,.55);color:var(--bl);padding:14px 36px;font-family:'Orbitron',sans-serif;font-size:.75rem;letter-spacing:2px;cursor:pointer;border-radius:6px;touch-action:manipulation;}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);width:100%;max-width:800px;border:1px solid rgba(255,255,255,.06);}
+@media(max-width:600px){.stats-row{grid-template-columns:repeat(2,1fr);}}
+.stat{padding:1.2rem .8rem;text-align:center;border-right:1px solid rgba(255,255,255,.06);}
 .stat:last-child{border-right:none;}
-.stat:hover{background:rgba(0,245,255,.04);}
-.stat-n{font-family:'Orbitron',sans-serif;font-size:1.6rem;font-weight:900;color:var(--blue);text-shadow:0 0 18px var(--blue);display:block;}
-.stat-l{font-size:.7rem;letter-spacing:2px;color:rgba(255,255,255,.35);text-transform:uppercase;}
+@media(max-width:600px){.stat:nth-child(2){border-right:none;}.stat:nth-child(3){border-top:1px solid rgba(255,255,255,.06);}.stat:nth-child(4){border-top:1px solid rgba(255,255,255,.06);border-right:none;}}
+.stat-n{font-family:'Orbitron',sans-serif;font-size:clamp(1rem,3vw,1.5rem);font-weight:900;color:var(--bl);display:block;}
+.stat-l{font-size:.62rem;letter-spacing:1.5px;color:rgba(255,255,255,.3);text-transform:uppercase;}
 
-/* SECTIONS */
-section{position:relative;z-index:1;padding:7rem 2.5rem;}
-.sec-head{text-align:center;margin-bottom:4rem;}
-.sec-eyebrow{font-family:'Orbitron',sans-serif;font-size:.6rem;letter-spacing:6px;color:var(--pink);text-shadow:0 0 14px var(--pink);display:block;margin-bottom:.9rem;text-transform:uppercase;}
-.sec-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.2rem,5vw,4.5rem);letter-spacing:4px;line-height:1;}
-.sec-title em{font-style:normal;color:var(--blue);text-shadow:0 0 28px var(--blue);}
+/* ── SECTIONS ── */
+section{position:relative;z-index:1;padding:5rem 1.5rem;}
+@media(max-width:768px){section{padding:4rem 1.2rem;}}
+.sec-head{text-align:center;margin-bottom:3rem;}
+.sec-eyebrow{font-family:'Orbitron',sans-serif;font-size:.55rem;letter-spacing:5px;color:var(--pk);display:block;margin-bottom:.8rem;text-transform:uppercase;}
+.sec-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,6vw,4rem);letter-spacing:3px;line-height:1;}
+.sec-title em{font-style:normal;color:var(--bl);}
 
-/* CATS */
-.cats{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap;margin-bottom:3rem;}
-.cat{padding:7px 22px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.45);font-family:'Orbitron',sans-serif;font-size:.6rem;letter-spacing:2px;cursor:pointer;text-transform:uppercase;border-radius:3px;transition:all .25s;}
-.cat:hover,.cat.on{border-color:var(--pink);color:var(--pink);background:rgba(255,0,110,.1);box-shadow:0 0 18px rgba(255,0,110,.2);text-shadow:0 0 10px var(--pink);}
+/* ── CATEGORIES ── */
+.cats{display:flex;gap:.6rem;justify-content:flex-start;flex-wrap:nowrap;margin-bottom:2.5rem;overflow-x:auto;padding-bottom:.5rem;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.cats::-webkit-scrollbar{display:none;}
+@media(min-width:768px){.cats{justify-content:center;flex-wrap:wrap;overflow-x:visible;}}
+.cat{padding:7px 18px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.45);font-family:'Orbitron',sans-serif;font-size:.55rem;letter-spacing:1.5px;cursor:pointer;text-transform:uppercase;border-radius:3px;white-space:nowrap;flex-shrink:0;touch-action:manipulation;}
+.cat.on{border-color:var(--pk);color:var(--pk);background:rgba(255,0,110,.1);}
 
-/* CARDS */
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:1.4rem;max-width:1200px;margin:0 auto;}
-.card{background:var(--card);border:1px solid rgba(255,255,255,.07);border-radius:6px;padding:1.6rem 1.4rem;position:relative;cursor:pointer;display:flex;flex-direction:column;align-items:center;transition:transform .35s,border-color .35s,box-shadow .35s;overflow:hidden;}
+/* ── PRODUCT GRID ── */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:1rem;max-width:1200px;margin:0 auto;}
+@media(max-width:400px){.grid{grid-template-columns:repeat(2,1fr);gap:.8rem;}}
+.card{background:var(--card);border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:1.2rem 1rem;position:relative;cursor:pointer;display:flex;flex-direction:column;align-items:center;overflow:hidden;touch-action:manipulation;}
 .card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;}
-.card.pk::after{background:linear-gradient(90deg,transparent,var(--pink),transparent);box-shadow:0 0 16px var(--pink);}
-.card.bl::after{background:linear-gradient(90deg,transparent,var(--blue),transparent);box-shadow:0 0 16px var(--blue);}
-.card.gd::after{background:linear-gradient(90deg,transparent,var(--gold),transparent);box-shadow:0 0 16px var(--gold);}
-.card.pu::after{background:linear-gradient(90deg,transparent,var(--purple),transparent);box-shadow:0 0 16px var(--purple);}
-.card.gr::after{background:linear-gradient(90deg,transparent,var(--green),transparent);box-shadow:0 0 16px var(--green);}
-.card:hover{transform:translateY(-9px);}
-.card.pk:hover{border-color:var(--pink);box-shadow:0 18px 55px rgba(255,0,110,.25);}
-.card.bl:hover{border-color:var(--blue);box-shadow:0 18px 55px rgba(0,245,255,.25);}
-.card.gd:hover{border-color:var(--gold);box-shadow:0 18px 55px rgba(255,215,0,.25);}
-.card.pu:hover{border-color:var(--purple);box-shadow:0 18px 55px rgba(191,0,255,.25);}
-.card.gr:hover{border-color:var(--green);box-shadow:0 18px 55px rgba(57,255,20,.25);}
-.card-glow{position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);width:70px;height:70px;border-radius:50%;filter:blur(22px);opacity:.35;transition:opacity .35s,width .35s;pointer-events:none;}
-.card:hover .card-glow{opacity:.75;width:110px;}
-.pk .card-glow{background:var(--pink);}.bl .card-glow{background:var(--blue);}.gd .card-glow{background:var(--gold);}.pu .card-glow{background:var(--purple);}.gr .card-glow{background:var(--green);}
-.card-badge{position:absolute;top:10px;right:10px;font-family:'Orbitron',sans-serif;font-size:.5rem;letter-spacing:1px;padding:3px 8px;border-radius:2px;}
-.b-new{background:rgba(57,255,20,.15);border:1px solid var(--green);color:var(--green);}
-.b-hot{background:rgba(255,0,110,.15);border:1px solid var(--pink);color:var(--pink);}
-.b-promo{background:rgba(255,215,0,.15);border:1px solid var(--gold);color:var(--gold);}
-.card-icon{font-size:3.8rem;position:relative;z-index:1;margin-bottom:.9rem;transition:transform .3s;}
-.card:hover .card-icon{transform:scale(1.08) rotate(-4deg);}
-.card-cat{font-size:.62rem;letter-spacing:3px;color:rgba(255,255,255,.28);text-transform:uppercase;margin-bottom:.25rem;}
-.card-name{font-family:'Bebas Neue',sans-serif;font-size:1.35rem;letter-spacing:2px;text-align:center;margin-bottom:.4rem;}
-.card-desc{font-size:.75rem;color:rgba(255,255,255,.35);text-align:center;line-height:1.55;margin-bottom:1rem;}
-.card-foot{width:100%;display:flex;align-items:center;justify-content:space-between;padding-top:.9rem;border-top:1px solid rgba(255,255,255,.06);margin-top:auto;}
-.card-price{font-family:'Orbitron',sans-serif;font-size:1.1rem;font-weight:700;}
-.pk .card-price{color:var(--pink);text-shadow:0 0 10px var(--pink);}
-.bl .card-price{color:var(--blue);text-shadow:0 0 10px var(--blue);}
-.gd .card-price{color:var(--gold);text-shadow:0 0 10px var(--gold);}
-.pu .card-price{color:var(--purple);text-shadow:0 0 10px var(--purple);}
-.gr .card-price{color:var(--green);text-shadow:0 0 10px var(--green);}
-.btn-add{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);color:#fff;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .25s;}
-.pk .btn-add:hover{background:rgba(255,0,110,.3);border-color:var(--pink);}
-.bl .btn-add:hover{background:rgba(0,245,255,.3);border-color:var(--blue);}
-.gd .btn-add:hover{background:rgba(255,215,0,.3);border-color:var(--gold);}
-.pu .btn-add:hover{background:rgba(191,0,255,.3);border-color:var(--purple);}
-.gr .btn-add:hover{background:rgba(57,255,20,.3);border-color:var(--green);}
+.card.pk::after{background:linear-gradient(90deg,transparent,var(--pk),transparent);}
+.card.bl::after{background:linear-gradient(90deg,transparent,var(--bl),transparent);}
+.card.gd::after{background:linear-gradient(90deg,transparent,var(--go),transparent);}
+.card.pu::after{background:linear-gradient(90deg,transparent,var(--pu),transparent);}
+.card.gr::after{background:linear-gradient(90deg,transparent,var(--gr),transparent);}
+/* hover uniquement sur desktop */
+@media(hover:hover){
+  .card{transition:transform .3s,border-color .3s,box-shadow .3s;}
+  .card:hover{transform:translateY(-6px);}
+  .card.pk:hover{border-color:var(--pk);box-shadow:0 14px 40px rgba(255,0,110,.2);}
+  .card.bl:hover{border-color:var(--bl);box-shadow:0 14px 40px rgba(0,245,255,.2);}
+  .card.gd:hover{border-color:var(--go);box-shadow:0 14px 40px rgba(255,215,0,.2);}
+  .card.pu:hover{border-color:var(--pu);box-shadow:0 14px 40px rgba(191,0,255,.2);}
+  .card.gr:hover{border-color:var(--gr);box-shadow:0 14px 40px rgba(57,255,20,.2);}
+}
+/* active state pour mobile */
+.card:active{transform:scale(.97);opacity:.9;}
+.card-badge{position:absolute;top:8px;right:8px;font-family:'Orbitron',sans-serif;font-size:.45rem;letter-spacing:1px;padding:2px 7px;border-radius:2px;}
+.b-new{background:rgba(57,255,20,.15);border:1px solid var(--gr);color:var(--gr);}
+.b-hot{background:rgba(255,0,110,.15);border:1px solid var(--pk);color:var(--pk);}
+.b-promo{background:rgba(255,215,0,.15);border:1px solid var(--go);color:var(--go);}
+.card-icon{font-size:3rem;margin-bottom:.7rem;line-height:1;}
+@media(max-width:400px){.card-icon{font-size:2.4rem;}}
+.card-cat{font-size:.55rem;letter-spacing:2px;color:rgba(255,255,255,.25);text-transform:uppercase;margin-bottom:.2rem;}
+.card-name{font-family:'Bebas Neue',sans-serif;font-size:1.15rem;letter-spacing:2px;text-align:center;margin-bottom:.3rem;}
+@media(max-width:400px){.card-name{font-size:1rem;}}
+.card-desc{font-size:.68rem;color:rgba(255,255,255,.3);text-align:center;line-height:1.5;margin-bottom:.8rem;}
+@media(max-width:480px){.card-desc{display:none;}}
+.card-foot{width:100%;display:flex;align-items:center;justify-content:space-between;padding-top:.7rem;border-top:1px solid rgba(255,255,255,.06);margin-top:auto;}
+.card-price{font-family:'Orbitron',sans-serif;font-size:1rem;font-weight:700;}
+.pk .card-price{color:var(--pk);}
+.bl .card-price{color:var(--bl);}
+.gd .card-price{color:var(--go);}
+.pu .card-price{color:var(--pu);}
+.gr .card-price{color:var(--gr);}
+.btn-add{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);color:#fff;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;touch-action:manipulation;flex-shrink:0;}
+.btn-add:active{transform:scale(.9);}
 
-/* HOW */
-.how-section{background:linear-gradient(180deg,rgba(0,245,255,.025) 0%,transparent 100%);border-top:1px solid rgba(0,245,255,.07);}
-.steps{display:grid;grid-template-columns:repeat(4,1fr);max-width:1100px;margin:0 auto;background:rgba(255,255,255,.025);}
-.step{padding:2.8rem 2rem;text-align:center;position:relative;transition:background .3s;border-right:1px solid rgba(255,255,255,.04);}
-.step:last-child{border-right:none;}
-.step:hover{background:rgba(255,0,110,.03);}
-.step-n{font-family:'Orbitron',sans-serif;font-size:4rem;font-weight:900;color:rgba(255,255,255,.03);position:absolute;top:.8rem;left:50%;transform:translateX(-50%);line-height:1;}
-.step-ico{font-size:2.4rem;margin-bottom:.9rem;position:relative;z-index:1;}
-.step-t{font-family:'Bebas Neue',sans-serif;font-size:1.25rem;letter-spacing:3px;color:var(--blue);text-shadow:0 0 10px rgba(0,245,255,.5);margin-bottom:.5rem;}
-.step-d{font-size:.78rem;color:rgba(255,255,255,.37);line-height:1.65;}
+/* ── HOW ── */
+.how-section{border-top:1px solid rgba(0,245,255,.07);}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);max-width:1000px;margin:0 auto;gap:1px;background:rgba(255,255,255,.04);}
+@media(max-width:700px){.steps{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:400px){.steps{grid-template-columns:1fr;}}
+.step{padding:2rem 1.5rem;text-align:center;background:var(--bg);}
+.step-n{font-family:'Orbitron',sans-serif;font-size:3rem;font-weight:900;color:rgba(255,255,255,.03);line-height:1;}
+.step-ico{font-size:2rem;margin:.5rem 0;}
+.step-t{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:3px;color:var(--bl);margin-bottom:.4rem;}
+.step-d{font-size:.75rem;color:rgba(255,255,255,.35);line-height:1.6;}
 
-/* POINTS */
-.pts-section{background:linear-gradient(135deg,rgba(191,0,255,.04),rgba(0,245,255,.04));border-top:1px solid rgba(191,0,255,.15);border-bottom:1px solid rgba(0,245,255,.15);}
-.pts-inner{display:grid;grid-template-columns:1fr 1fr;gap:5rem;max-width:1050px;margin:0 auto;align-items:center;}
-.ring-wrap{display:flex;justify-content:center;align-items:center;}
-.ring{width:260px;height:260px;border-radius:50%;border:1.5px solid rgba(191,0,255,.45);position:relative;display:flex;align-items:center;justify-content:center;animation:ringSpin 12s linear infinite;}
-@keyframes ringSpin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
-.ring::before{content:'';position:absolute;top:-5px;right:50%;width:8px;height:8px;background:var(--purple);border-radius:50%;box-shadow:0 0 18px var(--purple);}
-.ring-inner{position:absolute;text-align:center;animation:ringSpin 12s linear infinite reverse;}
-.ring-num{font-family:'Orbitron',sans-serif;font-size:3.2rem;font-weight:900;color:var(--purple);text-shadow:0 0 28px var(--purple);display:block;line-height:1;}
-.ring-unit{font-size:.65rem;letter-spacing:4px;color:rgba(255,255,255,.35);}
-.levels{display:flex;flex-direction:column;gap:.9rem;}
-.lv{display:flex;align-items:center;gap:1.2rem;padding:1.1rem 1.4rem;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:5px;transition:all .3s;}
-.lv:hover{background:rgba(255,255,255,.05);transform:translateX(8px);}
-.lv-ico{font-size:1.9rem;min-width:36px;text-align:center;}
-.lv-info{flex:1;}
-.lv-name{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:3px;}
-.lv-desc{font-size:.75rem;color:rgba(255,255,255,.38);}
-.lv-tag{font-family:'Orbitron',sans-serif;font-size:.58rem;padding:3px 9px;border-radius:2px;letter-spacing:1px;white-space:nowrap;}
-.t-bronze{border:1px solid #cd7f32;color:#cd7f32;background:rgba(205,127,50,.1);}
-.t-silver{border:1px solid #ccc;color:#ccc;background:rgba(200,200,200,.08);}
-.t-gold{border:1px solid var(--gold);color:var(--gold);background:rgba(255,215,0,.1);}
-.t-diamond{border:1px solid var(--blue);color:var(--blue);background:rgba(0,245,255,.1);box-shadow:0 0 12px rgba(0,245,255,.18);}
+/* ── POINTS ── */
+.pts-section{background:linear-gradient(135deg,rgba(191,0,255,.04),rgba(0,245,255,.04));border-top:1px solid rgba(191,0,255,.12);border-bottom:1px solid rgba(0,245,255,.12);}
+.pts-ratio{display:grid;grid-template-columns:repeat(3,1fr);max-width:700px;margin:0 auto 3rem;gap:1px;background:rgba(255,255,255,.04);}
+@media(max-width:480px){.pts-ratio{grid-template-columns:1fr;}}
+.pts-ratio-item{background:var(--card2);padding:1.4rem;text-align:center;}
+.pts-ratio-num{font-family:'Orbitron',sans-serif;font-size:1.3rem;font-weight:900;display:block;}
+.pts-ratio-lbl{font-size:.62rem;letter-spacing:1.5px;color:rgba(255,255,255,.3);margin-top:.3rem;}
+.rewards-timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;max-width:1100px;margin:0 auto;}
+@media(max-width:900px){.rewards-timeline{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:480px){.rewards-timeline{grid-template-columns:1fr;gap:.8rem;}}
+.rw-item{display:flex;flex-direction:column;align-items:center;gap:.6rem;}
+.rw-pts-badge{font-family:'Orbitron',sans-serif;font-size:.6rem;font-weight:700;letter-spacing:1.5px;padding:4px 12px;border-radius:50px;white-space:nowrap;}
+.rw-soft .rw-pts-badge{background:rgba(57,255,20,.12);border:1px solid var(--gr);color:var(--gr);}
+.rw-mixer .rw-pts-badge{background:rgba(57,255,20,.08);border:1px solid rgba(57,255,20,.5);color:var(--gr);}
+.rw-biere .rw-pts-badge{background:rgba(255,215,0,.08);border:1px solid rgba(255,215,0,.5);color:var(--go);}
+.rw-vin .rw-pts-badge{background:rgba(255,215,0,.12);border:1px solid var(--go);color:var(--go);}
+.rw-shot .rw-pts-badge{background:rgba(255,0,110,.08);border:1px solid rgba(255,0,110,.5);color:var(--pk);}
+.rw-bouteille .rw-pts-badge{background:rgba(255,0,110,.12);border:1px solid var(--pk);color:var(--pk);}
+.rw-gold .rw-pts-badge{background:rgba(0,245,255,.08);border:1px solid rgba(0,245,255,.5);color:var(--bl);}
+.rw-vip .rw-pts-badge{background:rgba(191,0,255,.15);border:1px solid var(--pu);color:var(--pu);}
+.rw-line{width:1px;height:18px;background:rgba(255,255,255,.1);}
+.rw-card{background:var(--card2);border:1px solid rgba(255,255,255,.06);border-radius:6px;padding:1.1rem;text-align:center;width:100%;flex:1;}
+.rw-icon{font-size:1.9rem;margin-bottom:.5rem;}
+.rw-name{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:2px;margin-bottom:.4rem;}
+.rw-desc{font-size:.68rem;color:rgba(255,255,255,.35);line-height:1.5;margin-bottom:.5rem;}
+.rw-equiv{font-family:'Orbitron',sans-serif;font-size:.48rem;letter-spacing:1px;color:rgba(255,255,255,.18);}
+.bonus-box{margin-top:2.5rem;padding:1.2rem 1.5rem;background:rgba(255,215,0,.05);border:1px solid rgba(255,215,0,.18);border-radius:6px;max-width:650px;margin-left:auto;margin-right:auto;text-align:center;}
+.bonus-box .bt{font-family:'Orbitron',sans-serif;font-size:.55rem;letter-spacing:3px;color:var(--go);margin-bottom:.5rem;}
+.bonus-box p{font-size:.78rem;color:rgba(255,255,255,.45);line-height:1.9;}
 
-/* FOOTER */
-footer{position:relative;z-index:1;background:rgba(4,4,10,.97);border-top:1px solid rgba(255,255,255,.05);padding:5rem 2.5rem 2.5rem;}
-.footer-g{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;max-width:1100px;margin:0 auto 3rem;}
-.footer-desc{font-size:.8rem;color:rgba(255,255,255,.3);line-height:1.9;margin:1rem 0 1.5rem;}
-.footer-socials{display:flex;gap:.8rem;}
-.soc{width:36px;height:36px;border-radius:6px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:.9rem;text-decoration:none;transition:all .3s;}
-.soc:hover{background:rgba(0,245,255,.1);border-color:var(--blue);}
-.fc h4{font-family:'Orbitron',sans-serif;font-size:.58rem;letter-spacing:4px;color:rgba(255,255,255,.3);text-transform:uppercase;margin-bottom:1.1rem;}
-.fc a{display:block;color:rgba(255,255,255,.45);text-decoration:none;font-size:.82rem;margin-bottom:.55rem;letter-spacing:1px;transition:all .3s;}
-.fc a:hover{color:var(--blue);text-shadow:0 0 10px var(--blue);padding-left:5px;}
-.footer-b{max-width:1100px;margin:0 auto;padding-top:2rem;border-top:1px solid rgba(255,255,255,.04);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
-.footer-b p{font-size:.7rem;color:rgba(255,255,255,.2);letter-spacing:1px;}
-.legal{font-size:.65rem;color:rgba(255,0,110,.5);letter-spacing:1px;text-align:center;display:block;margin-top:1rem;}
+/* ── FOOTER ── */
+footer{position:relative;z-index:1;background:rgba(4,4,10,.97);border-top:1px solid rgba(255,255,255,.05);padding:4rem 1.5rem 2rem;}
+.footer-g{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2.5rem;max-width:1100px;margin:0 auto 2.5rem;}
+@media(max-width:768px){.footer-g{grid-template-columns:1fr 1fr;}}
+@media(max-width:480px){.footer-g{grid-template-columns:1fr;}}
+.footer-desc{font-size:.78rem;color:rgba(255,255,255,.28);line-height:1.9;margin:.8rem 0 1.2rem;}
+.footer-socials{display:flex;gap:.7rem;}
+.soc{width:34px;height:34px;border-radius:6px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:.85rem;text-decoration:none;touch-action:manipulation;}
+.fc h4{font-family:'Orbitron',sans-serif;font-size:.52rem;letter-spacing:3px;color:rgba(255,255,255,.28);text-transform:uppercase;margin-bottom:1rem;}
+.fc a{display:block;color:rgba(255,255,255,.42);text-decoration:none;font-size:.8rem;margin-bottom:.5rem;letter-spacing:.5px;}
+.footer-b{max-width:1100px;margin:0 auto;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,.04);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.8rem;}
+.footer-b p{font-size:.65rem;color:rgba(255,255,255,.18);letter-spacing:1px;}
+.legal{font-size:.6rem;color:rgba(255,0,110,.45);text-align:center;display:block;margin-top:.8rem;}
 
-/* CART DRAWER */
-.drawer-ov{position:fixed;inset:0;background:rgba(0,0,0,.78);backdrop-filter:blur(10px);z-index:2000;opacity:0;pointer-events:none;transition:opacity .3s;}
+/* ── CART DRAWER ── */
+.drawer-ov{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:2000;opacity:0;pointer-events:none;transition:opacity .25s;}
 .drawer-ov.open{opacity:1;pointer-events:all;}
-.drawer{position:fixed;top:0;right:0;width:440px;max-width:100vw;height:100%;background:var(--card2);border-left:1px solid rgba(0,245,255,.2);box-shadow:-20px 0 80px rgba(0,245,255,.1);z-index:2001;display:flex;flex-direction:column;transform:translateX(110%);transition:transform .38s cubic-bezier(.4,0,.2,1);}
+.drawer{position:fixed;top:0;right:0;width:min(420px,100vw);height:100%;background:var(--card2);border-left:1px solid rgba(0,245,255,.15);z-index:2001;display:flex;flex-direction:column;transform:translateX(110%);transition:transform .3s cubic-bezier(.4,0,.2,1);will-change:transform;}
 .drawer-ov.open .drawer{transform:translateX(0);}
-.drawer-head{padding:1.4rem 1.8rem;border-bottom:1px solid rgba(255,255,255,.07);display:flex;align-items:center;justify-content:space-between;background:rgba(0,245,255,.04);flex-shrink:0;}
-.drawer-title{font-family:'Bebas Neue',sans-serif;font-size:1.65rem;letter-spacing:5px;color:var(--blue);text-shadow:0 0 20px rgba(0,245,255,.5);}
-.d-close{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.5);cursor:pointer;font-size:.85rem;display:flex;align-items:center;justify-content:center;transition:all .25s;}
-.d-close:hover{background:rgba(255,0,110,.2);border-color:var(--pink);color:var(--pink);}
-.drawer-items{flex:1;overflow-y:auto;padding:1.2rem 1.8rem;display:flex;flex-direction:column;gap:.8rem;}
-.drawer-items::-webkit-scrollbar{width:4px;}
+.drawer-head{padding:1.2rem 1.5rem;border-bottom:1px solid rgba(255,255,255,.07);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.drawer-title{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:4px;color:var(--bl);}
+.d-close{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.5);cursor:pointer;font-size:.85rem;display:flex;align-items:center;justify-content:center;touch-action:manipulation;}
+.drawer-items{flex:1;overflow-y:auto;padding:1rem 1.5rem;display:flex;flex-direction:column;gap:.7rem;-webkit-overflow-scrolling:touch;}
+.drawer-items::-webkit-scrollbar{width:3px;}
 .drawer-items::-webkit-scrollbar-thumb{background:rgba(0,245,255,.2);border-radius:2px;}
-.cart-empty{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:3rem;color:rgba(255,255,255,.2);}
-.cart-empty .eico{font-size:3.5rem;margin-bottom:1rem;opacity:.4;}
-.cart-empty p{font-family:'Orbitron',sans-serif;font-size:.62rem;letter-spacing:3px;}
-
-/* Cart item */
-.ci{display:flex;align-items:center;gap:.9rem;padding:.95rem 1.1rem;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:5px;transition:all .25s;animation:ciIn .25s ease;}
-@keyframes ciIn{from{opacity:0;transform:translateX(18px);}to{opacity:1;transform:translateX(0);}}
-.ci:hover{background:rgba(255,255,255,.055);border-color:rgba(0,245,255,.15);}
-.ci-icon{font-size:2rem;flex-shrink:0;line-height:1;}
+.cart-empty{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;color:rgba(255,255,255,.2);}
+.cart-empty .eico{font-size:3rem;margin-bottom:.8rem;opacity:.35;}
+.cart-empty p{font-family:'Orbitron',sans-serif;font-size:.58rem;letter-spacing:2px;}
+.ci{display:flex;align-items:center;gap:.8rem;padding:.85rem 1rem;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:5px;}
+.ci-icon{font-size:1.8rem;flex-shrink:0;line-height:1;}
 .ci-info{flex:1;min-width:0;}
-.ci-name{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.ci-sub{font-size:.7rem;color:rgba(255,255,255,.32);margin-top:1px;}
-.ci-qty{display:flex;align-items:center;gap:.45rem;flex-shrink:0;}
-.qb{width:26px;height:26px;border-radius:4px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:#fff;font-size:.9rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;font-family:'Rajdhani';font-weight:700;}
-.qb:hover{background:rgba(0,245,255,.2);border-color:var(--blue);}
-.qb.minus:hover{background:rgba(255,0,110,.2);border-color:var(--pink);}
-.qn{font-family:'Orbitron',sans-serif;font-size:.78rem;font-weight:700;width:20px;text-align:center;}
-.ci-price{font-family:'Orbitron',sans-serif;font-size:.82rem;font-weight:700;color:var(--gold);text-shadow:0 0 8px rgba(255,215,0,.4);flex-shrink:0;min-width:44px;text-align:right;}
-.ci-del{width:26px;height:26px;border-radius:4px;background:transparent;border:1px solid rgba(255,255,255,.07);color:rgba(255,255,255,.28);font-size:.75rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;}
-.ci-del:hover{background:rgba(255,0,110,.2);border-color:var(--pink);color:var(--pink);}
-
-/* Drawer foot */
-.drawer-foot{padding:1.4rem 1.8rem;border-top:1px solid rgba(255,255,255,.07);background:rgba(0,0,0,.3);flex-shrink:0;}
-.promo-row{display:flex;gap:.6rem;margin-bottom:1.2rem;}
-.promo-inp{flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);color:#fff;padding:8px 12px;font-family:'Rajdhani',sans-serif;font-size:.88rem;border-radius:4px;outline:none;transition:border-color .25s;}
-.promo-inp:focus{border-color:var(--blue);}
-.promo-inp::placeholder{color:rgba(255,255,255,.2);}
-.promo-btn{background:rgba(255,215,0,.1);border:1px solid rgba(255,215,0,.4);color:var(--gold);padding:8px 14px;font-family:'Orbitron',sans-serif;font-size:.58rem;letter-spacing:2px;cursor:pointer;border-radius:4px;transition:all .25s;}
-.promo-btn:hover{background:rgba(255,215,0,.2);}
-.totals{margin-bottom:1rem;}
-.tr{display:flex;justify-content:space-between;align-items:center;padding:.38rem 0;font-size:.8rem;color:rgba(255,255,255,.42);}
-.tr.main{padding-top:.7rem;border-top:1px solid rgba(255,255,255,.07);font-family:'Orbitron',sans-serif;font-size:.88rem;color:#fff;font-weight:700;}
+.ci-name{font-family:'Bebas Neue',sans-serif;font-size:.95rem;letter-spacing:1.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.ci-sub{font-size:.65rem;color:rgba(255,255,255,.3);}
+.ci-qty{display:flex;align-items:center;gap:.4rem;flex-shrink:0;}
+.qb{width:28px;height:28px;border-radius:4px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:#fff;font-size:.9rem;cursor:pointer;display:flex;align-items:center;justify-content:center;touch-action:manipulation;font-weight:700;}
+.qb:active{background:rgba(0,245,255,.2);}
+.qb.minus:active{background:rgba(255,0,110,.2);}
+.qn{font-family:'Orbitron',sans-serif;font-size:.75rem;font-weight:700;width:18px;text-align:center;}
+.ci-price{font-family:'Orbitron',sans-serif;font-size:.78rem;font-weight:700;color:var(--go);flex-shrink:0;min-width:40px;text-align:right;}
+.ci-del{width:26px;height:26px;border-radius:4px;background:transparent;border:1px solid rgba(255,255,255,.07);color:rgba(255,255,255,.28);font-size:.72rem;cursor:pointer;display:flex;align-items:center;justify-content:center;touch-action:manipulation;flex-shrink:0;}
+.ci-del:active{background:rgba(255,0,110,.2);color:var(--pk);}
+.drawer-foot{padding:1.2rem 1.5rem;border-top:1px solid rgba(255,255,255,.07);background:rgba(0,0,0,.25);flex-shrink:0;}
+.promo-row{display:flex;gap:.5rem;margin-bottom:1rem;}
+.promo-inp{flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);color:#fff;padding:9px 12px;font-family:'Rajdhani',sans-serif;font-size:.88rem;border-radius:4px;outline:none;min-width:0;}
+.promo-inp:focus{border-color:var(--bl);}
+.promo-inp::placeholder{color:rgba(255,255,255,.18);}
+.promo-btn{background:rgba(255,215,0,.1);border:1px solid rgba(255,215,0,.35);color:var(--go);padding:9px 12px;font-family:'Orbitron',sans-serif;font-size:.55rem;letter-spacing:1.5px;cursor:pointer;border-radius:4px;white-space:nowrap;touch-action:manipulation;}
+.totals{margin-bottom:.9rem;}
+.tr{display:flex;justify-content:space-between;align-items:center;padding:.35rem 0;font-size:.78rem;color:rgba(255,255,255,.4);}
+.tr.main{padding-top:.6rem;border-top:1px solid rgba(255,255,255,.07);font-family:'Orbitron',sans-serif;font-size:.85rem;color:#fff;font-weight:700;}
 .tr .v{font-family:'Orbitron',sans-serif;}
-.tr.main .v{color:var(--gold);text-shadow:0 0 14px rgba(255,215,0,.45);font-size:1.15rem;}
-.pts-earn{display:flex;align-items:center;gap:.5rem;font-size:.7rem;color:var(--green);margin-bottom:1.1rem;padding:.55rem .9rem;background:rgba(57,255,20,.06);border:1px solid rgba(57,255,20,.2);border-radius:4px;}
-.btn-checkout{width:100%;padding:14px;background:linear-gradient(135deg,var(--pink),var(--purple));border:none;color:#fff;font-family:'Orbitron',sans-serif;font-size:.8rem;letter-spacing:3px;cursor:pointer;border-radius:5px;box-shadow:0 0 28px rgba(255,0,110,.35);transition:all .3s;text-transform:uppercase;}
-.btn-checkout:hover{box-shadow:0 6px 40px rgba(255,0,110,.65);transform:translateY(-2px);}
+.tr.main .v{color:var(--go);font-size:1.1rem;}
+.pts-earn{display:flex;align-items:center;gap:.4rem;font-size:.67rem;color:var(--gr);margin-bottom:1rem;padding:.5rem .8rem;background:rgba(57,255,20,.05);border:1px solid rgba(57,255,20,.18);border-radius:4px;}
+.btn-checkout{width:100%;padding:14px;background:linear-gradient(135deg,var(--pk),var(--pu));border:none;color:#fff;font-family:'Orbitron',sans-serif;font-size:.75rem;letter-spacing:2px;cursor:pointer;border-radius:5px;touch-action:manipulation;}
+.btn-checkout:active{opacity:.85;}
 
-/* CHECKOUT MODAL */
-.modal-ov{position:fixed;inset:0;background:rgba(0,0,0,.9);backdrop-filter:blur(14px);z-index:3000;display:flex;align-items:center;justify-content:center;padding:1.5rem;opacity:0;pointer-events:none;transition:opacity .3s;}
+/* ── CHECKOUT MODAL ── */
+.modal-ov{position:fixed;inset:0;background:rgba(0,0,0,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);z-index:3000;display:flex;align-items:flex-end;justify-content:center;padding:0;opacity:0;pointer-events:none;transition:opacity .25s;}
+@media(min-width:600px){.modal-ov{align-items:center;padding:1.5rem;}}
 .modal-ov.open{opacity:1;pointer-events:all;}
-.modal{background:var(--card2);border:1px solid rgba(0,245,255,.22);border-radius:8px;width:100%;max-width:580px;max-height:92vh;overflow-y:auto;padding:2.4rem;box-shadow:0 0 80px rgba(0,245,255,.13);transform:translateY(28px);transition:transform .3s;}
+.modal{background:var(--card2);border:1px solid rgba(0,245,255,.18);border-radius:16px 16px 0 0;width:100%;max-width:580px;max-height:92vh;overflow-y:auto;padding:1.8rem 1.5rem;transform:translateY(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);-webkit-overflow-scrolling:touch;}
+@media(min-width:600px){.modal{border-radius:10px;transform:translateY(30px);max-height:90vh;}}
 .modal-ov.open .modal{transform:translateY(0);}
-.modal::-webkit-scrollbar{width:4px;}
-.modal::-webkit-scrollbar-thumb{background:rgba(0,245,255,.2);}
-.modal-hd{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:2rem;}
-.modal-title{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:4px;color:var(--blue);text-shadow:0 0 20px rgba(0,245,255,.5);}
-.modal-sub{font-size:.75rem;color:rgba(255,255,255,.32);letter-spacing:1px;margin-top:.3rem;}
-.modal-x{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.5);cursor:pointer;font-size:.85rem;display:flex;align-items:center;justify-content:center;transition:all .25s;flex-shrink:0;}
-.modal-x:hover{background:rgba(255,0,110,.2);border-color:var(--pink);color:var(--pink);}
-.fg{margin-bottom:1.3rem;}
-.fl{display:block;font-size:.62rem;letter-spacing:3px;color:rgba(255,255,255,.38);text-transform:uppercase;margin-bottom:.45rem;}
-.fi{width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);color:#fff;padding:11px 15px;font-family:'Rajdhani',sans-serif;font-size:.95rem;border-radius:4px;outline:none;transition:border-color .25s,box-shadow .25s;}
-.fi:focus{border-color:var(--blue);box-shadow:0 0 18px rgba(0,245,255,.15);}
+.modal::-webkit-scrollbar{width:3px;}
+.modal::-webkit-scrollbar-thumb{background:rgba(0,245,255,.18);}
+/* drag handle on mobile */
+.modal-handle{width:40px;height:4px;background:rgba(255,255,255,.15);border-radius:2px;margin:0 auto 1.2rem;}
+@media(min-width:600px){.modal-handle{display:none;}}
+.modal-hd{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1.5rem;}
+.modal-title{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:3px;color:var(--bl);}
+.modal-sub{font-size:.7rem;color:rgba(255,255,255,.3);letter-spacing:1px;margin-top:.2rem;}
+.modal-x{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.5);cursor:pointer;font-size:.8rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;touch-action:manipulation;}
+.fg{margin-bottom:1.2rem;}
+.fl{display:block;font-size:.58rem;letter-spacing:2.5px;color:rgba(255,255,255,.35);text-transform:uppercase;margin-bottom:.4rem;}
+.fi{width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);color:#fff;padding:12px 14px;font-family:'Rajdhani',sans-serif;font-size:1rem;border-radius:6px;outline:none;transition:border-color .2s;-webkit-appearance:none;appearance:none;}
+.fi:focus{border-color:var(--bl);}
 .fi::placeholder{color:rgba(255,255,255,.18);}
-.f2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
-.loc-tabs{display:flex;gap:.5rem;margin-bottom:.9rem;}
-.loc-tab{flex:1;padding:8px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.4);font-family:'Orbitron',sans-serif;font-size:.55rem;letter-spacing:2px;cursor:pointer;text-align:center;border-radius:3px;transition:all .25s;}
-.loc-tab.on{border-color:var(--blue);color:var(--blue);background:rgba(0,245,255,.07);}
-/* Leaflet dark theme */
-#leafletMap .leaflet-tile{filter:invert(1) hue-rotate(180deg) brightness(.75) saturate(.8);}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;}
+@media(max-width:400px){.f2{grid-template-columns:1fr;}}
+
+/* Location */
+.loc-tabs{display:flex;gap:.4rem;margin-bottom:.8rem;}
+.loc-tab{flex:1;padding:9px 4px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.38);font-family:'Orbitron',sans-serif;font-size:.48rem;letter-spacing:1px;cursor:pointer;text-align:center;border-radius:4px;touch-action:manipulation;}
+.loc-tab.on{border-color:var(--bl);color:var(--bl);background:rgba(0,245,255,.07);}
+.map-box{width:100%;height:130px;background:rgba(0,245,255,.04);border:1px solid rgba(0,245,255,.18);border-radius:6px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4rem;cursor:pointer;margin-bottom:.7rem;touch-action:manipulation;}
+.map-box:active{background:rgba(0,245,255,.08);}
+.map-ico{font-size:1.8rem;}
+.map-lbl{font-size:.62rem;color:rgba(255,255,255,.35);letter-spacing:1.5px;text-align:center;padding:0 1rem;}
+.map-status{font-size:.58rem;letter-spacing:1px;color:rgba(255,255,255,.2);}
+#leafletMap{width:100%;height:220px;border-radius:6px;border:1px solid rgba(0,245,255,.18);overflow:hidden;}
+#leafletMap .leaflet-tile{filter:invert(1) hue-rotate(180deg) brightness(.7) saturate(.7);}
 #leafletMap .leaflet-container{background:#0a0a14;}
-#leafletMap .leaflet-control-zoom a{background:var(--card2);border-color:rgba(0,245,255,.3);color:var(--blue);}
-#leafletMap .leaflet-control-zoom a:hover{background:rgba(0,245,255,.15);}
-#leafletMap .leaflet-control-attribution{background:rgba(4,4,10,.8);color:rgba(255,255,255,.3);font-size:.55rem;}
-.map-box{width:100%;height:155px;background:rgba(0,245,255,.04);border:1px solid rgba(0,245,255,.18);border-radius:5px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;cursor:pointer;transition:all .3s;margin-bottom:.8rem;}
-.map-box:hover{background:rgba(0,245,255,.08);box-shadow:0 0 28px rgba(0,245,255,.12);}
-.map-ico{font-size:2rem;}
-.map-lbl{font-size:.68rem;color:rgba(255,255,255,.38);letter-spacing:2px;}
-.map-status{font-size:.62rem;letter-spacing:1px;color:rgba(255,255,255,.22);}
-.fdiv{display:flex;align-items:center;gap:1rem;margin:1.8rem 0;}
+#leafletMap .leaflet-control-zoom a{background:var(--card2);border-color:rgba(0,245,255,.25);color:var(--bl);width:28px;height:28px;line-height:28px;}
+#leafletMap .leaflet-control-attribution{background:rgba(4,4,10,.8);color:rgba(255,255,255,.25);font-size:.5rem;}
+.loc-result{display:none;padding:.75rem 1rem;border-radius:5px;margin-bottom:.7rem;}
+.loc-result.ok{background:rgba(57,255,20,.07);border:1px solid rgba(57,255,20,.25);}
+.loc-result .lr-label{font-size:.58rem;letter-spacing:1.5px;color:var(--gr);margin-bottom:.3rem;}
+.loc-result .lr-addr{font-size:.85rem;color:#fff;font-weight:600;}
+.loc-result .lr-coords{font-size:.6rem;color:rgba(255,255,255,.3);margin-top:.2rem;font-family:'Orbitron',sans-serif;}
+
+.fdiv{display:flex;align-items:center;gap:.8rem;margin:1.5rem 0;}
 .fdiv::before,.fdiv::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.07);}
-.fdiv span{font-family:'Orbitron',sans-serif;font-size:.52rem;letter-spacing:3px;color:rgba(255,255,255,.22);}
-.age-box{display:flex;align-items:flex-start;gap:.9rem;padding:1.1rem;background:rgba(255,0,110,.05);border:1px solid rgba(255,0,110,.28);border-radius:5px;margin-bottom:1.4rem;}
-.age-box input[type=checkbox]{width:16px;height:16px;accent-color:var(--pink);cursor:pointer;flex-shrink:0;margin-top:2px;}
-.age-txt{font-size:.77rem;color:rgba(255,255,255,.62);line-height:1.6;}
-.age-txt strong{color:var(--pink);}
-.pay-block{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.07);border-radius:5px;padding:1.4rem;margin-bottom:1.4rem;}
-.pay-title{font-family:'Orbitron',sans-serif;font-size:.62rem;letter-spacing:3px;color:var(--gold);text-shadow:0 0 10px rgba(255,215,0,.4);margin-bottom:1rem;display:flex;align-items:center;gap:.5rem;}
-.card-logos{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem;}
-.clogo{padding:3px 11px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:3px;font-size:.62rem;color:rgba(255,255,255,.52);font-family:'Rajdhani';font-weight:700;letter-spacing:1px;}
-.ssl-line{display:flex;align-items:center;gap:.4rem;font-size:.6rem;color:var(--green);letter-spacing:1px;margin-top:.8rem;}
-.order-sum{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:5px;padding:1.2rem 1.4rem;margin-bottom:1.4rem;}
-.sum-title{font-family:'Orbitron',sans-serif;font-size:.58rem;letter-spacing:3px;color:rgba(255,255,255,.3);margin-bottom:.9rem;}
-.sum-row{display:flex;justify-content:space-between;align-items:center;padding:.3rem 0;font-size:.8rem;color:rgba(255,255,255,.45);}
-.sum-row .v{font-family:'Orbitron',sans-serif;font-size:.78rem;}
-.sum-total{display:flex;justify-content:space-between;align-items:baseline;padding-top:.7rem;border-top:1px solid rgba(255,255,255,.06);margin-top:.5rem;}
-.sum-total .lbl{font-family:'Orbitron',sans-serif;font-size:.72rem;letter-spacing:2px;color:rgba(255,255,255,.55);}
-.sum-total .amt{font-family:'Orbitron',sans-serif;font-size:1.5rem;font-weight:900;color:var(--gold);text-shadow:0 0 14px rgba(255,215,0,.5);}
-.btn-pay{width:100%;padding:15px;background:linear-gradient(135deg,var(--pink),var(--purple));border:none;color:#fff;font-family:'Orbitron',sans-serif;font-size:.82rem;letter-spacing:3px;cursor:pointer;border-radius:5px;box-shadow:0 0 28px rgba(255,0,110,.4);transition:all .3s;text-transform:uppercase;}
-.btn-pay:hover{transform:translateY(-2px);box-shadow:0 8px 46px rgba(255,0,110,.65);}
+.fdiv span{font-family:'Orbitron',sans-serif;font-size:.48rem;letter-spacing:2.5px;color:rgba(255,255,255,.2);}
+.age-box{display:flex;align-items:flex-start;gap:.8rem;padding:1rem;background:rgba(255,0,110,.05);border:1px solid rgba(255,0,110,.25);border-radius:5px;margin-bottom:1.2rem;}
+.age-box input[type=checkbox]{width:18px;height:18px;accent-color:var(--pk);cursor:pointer;flex-shrink:0;margin-top:1px;}
+.age-txt{font-size:.76rem;color:rgba(255,255,255,.6);line-height:1.6;}
+.age-txt strong{color:var(--pk);}
+.pay-block{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.07);border-radius:6px;padding:1.2rem;margin-bottom:1.2rem;}
+.pay-title{font-family:'Orbitron',sans-serif;font-size:.58rem;letter-spacing:2px;color:var(--go);margin-bottom:.9rem;display:flex;align-items:center;gap:.4rem;}
+.card-logos{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:.9rem;}
+.clogo{padding:3px 10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:3px;font-size:.6rem;color:rgba(255,255,255,.5);font-weight:700;letter-spacing:.5px;}
+.ssl-line{display:flex;align-items:center;gap:.4rem;font-size:.58rem;color:var(--gr);margin-top:.7rem;flex-wrap:wrap;}
+.order-sum{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:5px;padding:1.1rem;margin-bottom:1.2rem;}
+.sum-title{font-family:'Orbitron',sans-serif;font-size:.55rem;letter-spacing:2px;color:rgba(255,255,255,.28);margin-bottom:.8rem;}
+.sum-row{display:flex;justify-content:space-between;align-items:center;padding:.28rem 0;font-size:.78rem;color:rgba(255,255,255,.42);}
+.sum-row .v{font-family:'Orbitron',sans-serif;font-size:.74rem;}
+.sum-total{display:flex;justify-content:space-between;align-items:baseline;padding-top:.6rem;border-top:1px solid rgba(255,255,255,.06);margin-top:.4rem;}
+.sum-total .lbl{font-family:'Orbitron',sans-serif;font-size:.68rem;letter-spacing:1.5px;color:rgba(255,255,255,.5);}
+.sum-total .amt{font-family:'Orbitron',sans-serif;font-size:1.4rem;font-weight:900;color:var(--go);}
+.btn-pay{width:100%;padding:15px;background:linear-gradient(135deg,var(--pk),var(--pu));border:none;color:#fff;font-family:'Orbitron',sans-serif;font-size:.78rem;letter-spacing:2px;cursor:pointer;border-radius:6px;touch-action:manipulation;}
+.btn-pay:active{opacity:.85;}
 
-/* AGE GATE */
-#ageGate{position:fixed;inset:0;background:var(--bg);z-index:9997;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;transition:opacity .8s;}
-.gate-logo{font-family:'Bebas Neue',sans-serif;font-size:3.5rem;letter-spacing:8px;margin-bottom:2.5rem;}
-.gate-msg{font-family:'Orbitron',sans-serif;font-size:.72rem;letter-spacing:4px;color:rgba(255,255,255,.42);line-height:2.2;margin-bottom:3rem;}
-.gate-msg span{color:var(--pink);}
-.gate-btns{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;}
-.gate-warn{font-size:.67rem;color:rgba(255,255,255,.18);max-width:420px;line-height:1.9;margin-top:2.5rem;}
+/* ── AGE GATE ── */
+#ageGate{position:fixed;inset:0;background:var(--bg);z-index:9997;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;transition:opacity .6s;}
+.gate-logo{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.2rem,10vw,3.5rem);letter-spacing:6px;margin-bottom:2rem;}
+.gate-msg{font-family:'Orbitron',sans-serif;font-size:.62rem;letter-spacing:3px;color:rgba(255,255,255,.4);line-height:2.2;margin-bottom:2.5rem;}
+@media(max-width:480px){.gate-msg{font-size:.52rem;letter-spacing:2px;}}
+.gate-msg span{color:var(--pk);}
+.gate-btns{display:flex;gap:.8rem;flex-wrap:wrap;justify-content:center;}
+@media(max-width:400px){.gate-btns{flex-direction:column;align-items:stretch;width:100%;max-width:280px;}}
+.gate-warn{font-size:.62rem;color:rgba(255,255,255,.15);max-width:380px;line-height:1.9;margin-top:2rem;}
 
-::-webkit-scrollbar{width:5px;}
+/* ── CONFIRMATION ── */
+#confirmScreen{display:none;position:fixed;inset:0;background:rgba(0,0,0,.96);z-index:4000;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;overflow-y:auto;}
+.conf-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.2rem,8vw,3.2rem);letter-spacing:5px;color:var(--gr);margin-bottom:.7rem;}
+.conf-eta-box{padding:1.2rem 2.5rem;background:rgba(57,255,20,.07);border:1px solid rgba(57,255,20,.35);border-radius:6px;margin:1.5rem 0;}
+.conf-eta-lbl{font-family:'Orbitron',sans-serif;font-size:.55rem;letter-spacing:2px;color:var(--gr);margin-bottom:.4rem;}
+.conf-eta-num{font-family:'Bebas Neue',sans-serif;font-size:3rem;letter-spacing:3px;}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%) translateY(0);z-index:9995;padding:10px 18px;border-radius:6px;font-family:'Orbitron',sans-serif;font-size:.58rem;letter-spacing:1.5px;pointer-events:none;white-space:nowrap;transition:opacity .35s,transform .35s;}
+.toast.hide{opacity:0;transform:translateX(-50%) translateY(10px);}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:4px;}
 ::-webkit-scrollbar-track{background:var(--bg);}
-::-webkit-scrollbar-thumb{background:rgba(0,245,255,.22);border-radius:3px;}
-
-@media(max-width:900px){.stats-row{grid-template-columns:repeat(2,1fr);}.steps{grid-template-columns:repeat(2,1fr);}.pts-inner{grid-template-columns:1fr;}.footer-g{grid-template-columns:1fr 1fr;}.nav-center{display:none;}.drawer{width:100vw;}}
-@media(max-width:560px){.f2{grid-template-columns:1fr;}.footer-g{grid-template-columns:1fr;}}
+::-webkit-scrollbar-thumb{background:rgba(0,245,255,.2);border-radius:2px;}
 </style>
 </head>
 <body>
@@ -296,6 +339,8 @@ footer{position:relative;z-index:1;background:rgba(4,4,10,.97);border-top:1px so
 <!-- AGE GATE -->
 <div id="ageGate">
   <div class="bg-grid"></div>
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
   <div class="gate-logo">
     <span class="lP">P</span><span class="lN">ESHO</span><span class="lT1">T</span><span class="lN">A</span><span class="lT2">T</span><span class="lEIL">EIL</span>
   </div>
@@ -304,15 +349,14 @@ footer{position:relative;z-index:1;background:rgba(4,4,10,.97);border-top:1px so
     <button class="btn-pp" onclick="enterSite()">J'AI 18 ANS OU PLUS</button>
     <button class="btn-po" onclick="exitSite()">JE SUIS MINEUR</button>
   </div>
-  <p class="gate-warn">En confirmant votre accès, vous certifiez sur l'honneur être majeur(e) et avoir le droit légal de consommer des boissons alcoolisées.</p>
+  <p class="gate-warn">En confirmant, vous certifiez être majeur(e) et avoir le droit légal de consommer des boissons alcoolisées.</p>
 </div>
 
 <!-- MAIN SITE -->
-<div id="mainSite" style="display:none;opacity:0;transition:opacity .8s;">
+<div id="mainSite" style="display:none;opacity:0;transition:opacity .6s;">
 <div class="bg-grid"></div>
 <div class="blob b1"></div>
 <div class="blob b2"></div>
-<div class="blob b3"></div>
 
 <!-- NAV -->
 <nav>
@@ -321,28 +365,19 @@ footer{position:relative;z-index:1;background:rgba(4,4,10,.97);border-top:1px so
     <span class="ltag">LIVRAISON 1H</span>
   </a>
   <div class="nav-center">
-    <a href="#">Whiskies</a>
-    <a href="#">Champagnes</a>
-    <a href="#">Vins</a>
-    <a href="#">Bières</a>
-    <a href="#">Softs & Mixers</a>
+    <a href="#">Whiskies</a><a href="#">Champagnes</a><a href="#">Vins</a><a href="#">Bières</a><a href="#">Softs</a>
   </div>
   <div class="nav-right">
-    <button class="pill-pts" onclick="document.getElementById('ptsSection').scrollIntoView({behavior:'smooth'})">
-      ★ <span id="navPts">540</span> PTS
-    </button>
-    <button class="btn-cart-nav" onclick="openCart()">
-      🛒 PANIER
-      <span class="cart-count" id="cartCount">0</span>
-    </button>
+    <button class="pill-pts" onclick="scrollTo('ptsSection')">★ <span id="navPts">0</span> PTS</button>
+    <button class="btn-cart-nav" onclick="openCart()">🛒 <span id="cartCount" class="cart-count">0</span></button>
   </div>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
   <div class="hero-glow"></div>
-  <div style="position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--pink),var(--blue),var(--purple),transparent);"></div>
-  <div class="hero-eyebrow">⚡ DISPONIBLE 18H – 06H · LIVRAISON EXPRESS SOIRÉE ⚡</div>
+  <div style="position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--pk),var(--bl),var(--pu),transparent);"></div>
+  <div class="hero-eyebrow">⚡ DISPONIBLE 18H – 06H · LIVRAISON EXPRESS ⚡</div>
   <h1 class="hero-title">
     <span class="t1">PESHO</span>
     <span class="t2">TATEIL</span>
@@ -350,27 +385,27 @@ footer{position:relative;z-index:1;background:rgba(4,4,10,.97);border-top:1px so
   <p class="hero-sub">La vitrine de nuit. Les meilleures bouteilles, <b>livrées en moins d'une heure.</b></p>
   <div class="live-badge"><div class="live-dot"></div>EN LIGNE · LIVRAISON GARANTIE EN MOINS D'UNE HEURE</div>
   <div class="hero-cta">
-    <button class="btn-pp" onclick="document.getElementById('vitrine').scrollIntoView({behavior:'smooth'})">COMMANDER MAINTENANT</button>
-    <button class="btn-po" onclick="document.getElementById('howSection').scrollIntoView({behavior:'smooth'})">COMMENT ÇA MARCHE ?</button>
+    <button class="btn-pp" onclick="scrollTo('vitrine')">COMMANDER MAINTENANT</button>
+    <button class="btn-po" onclick="scrollTo('howSection')">COMMENT ÇA MARCHE ?</button>
   </div>
   <div class="stats-row">
-    <div class="stat"><span class="stat-n">+2 400</span><span class="stat-l">Clients satisfaits</span></div>
-    <div class="stat"><span class="stat-n">47 MIN</span><span class="stat-l">Livraison moyenne</span></div>
+    <div class="stat"><span class="stat-n">+2 400</span><span class="stat-l">Clients</span></div>
+    <div class="stat"><span class="stat-n">47 MIN</span><span class="stat-l">Livraison moy.</span></div>
     <div class="stat"><span class="stat-n">+150</span><span class="stat-l">Références</span></div>
     <div class="stat"><span class="stat-n">4.9 ★</span><span class="stat-l">Note clients</span></div>
   </div>
 </section>
 
 <!-- VITRINE -->
-<section id="vitrine" style="padding-top:5rem;">
+<section id="vitrine" style="padding-top:4rem;">
   <div class="sec-head">
     <span class="sec-eyebrow">⚡ Sélection du moment ⚡</span>
     <h2 class="sec-title">LA <em>VITRINE</em></h2>
   </div>
-  <div class="cats">
+  <div class="cats" id="catBar">
     <button class="cat on" onclick="filterCat(this,'all')">Tout</button>
-    <button class="cat" onclick="filterCat(this,'whisky')">Whiskies</button>
     <button class="cat" onclick="filterCat(this,'champagne')">Champagnes</button>
+    <button class="cat" onclick="filterCat(this,'whisky')">Whiskies</button>
     <button class="cat" onclick="filterCat(this,'vin')">Vins</button>
     <button class="cat" onclick="filterCat(this,'biere')">Bières</button>
     <button class="cat" onclick="filterCat(this,'gin')">Gins & Rhums</button>
@@ -386,10 +421,10 @@ footer{position:relative;z-index:1;background:rgba(4,4,10,.97);border-top:1px so
     <h2 class="sec-title">COMMENT <em>ÇA MARCHE</em></h2>
   </div>
   <div class="steps">
-    <div class="step"><div class="step-n">01</div><div class="step-ico">🛒</div><div class="step-t">Choisissez</div><div class="step-d">Parcourez la vitrine, ajoutez vos bouteilles, gérez votre panier à tout moment</div></div>
-    <div class="step"><div class="step-n">02</div><div class="step-ico">📍</div><div class="step-t">Localisez</div><div class="step-d">GPS auto, carte interactive ou saisie manuelle — votre choix</div></div>
-    <div class="step"><div class="step-n">03</div><div class="step-ico">💳</div><div class="step-t">Payez</div><div class="step-d">Paiement 100% sécurisé par carte bancaire. SSL 256-bit & 3D Secure</div></div>
-    <div class="step"><div class="step-n">04</div><div class="step-ico">🚀</div><div class="step-t">Recevez</div><div class="step-d">Votre livreur arrive en moins d'une heure avec suivi en temps réel</div></div>
+    <div class="step"><div class="step-n">01</div><div class="step-ico">🛒</div><div class="step-t">Choisissez</div><div class="step-d">Parcourez la vitrine, ajoutez et gérez votre panier à tout moment</div></div>
+    <div class="step"><div class="step-n">02</div><div class="step-ico">📍</div><div class="step-t">Localisez</div><div class="step-d">GPS auto, carte interactive ou saisie manuelle</div></div>
+    <div class="step"><div class="step-n">03</div><div class="step-ico">💳</div><div class="step-t">Payez</div><div class="step-d">Paiement sécurisé par carte bancaire. SSL & 3D Secure</div></div>
+    <div class="step"><div class="step-n">04</div><div class="step-ico">🚀</div><div class="step-t">Recevez</div><div class="step-d">Votre livreur arrive en moins d'une heure</div></div>
   </div>
 </section>
 
@@ -399,184 +434,53 @@ footer{position:relative;z-index:1;background:rgba(4,4,10,.97);border-top:1px so
     <span class="sec-eyebrow">Programme fidélité</span>
     <h2 class="sec-title">SYSTÈME DE <em>RÉCOMPENSES</em></h2>
   </div>
-
-  <!-- RATIO EXPLAINER -->
-  <div style="max-width:860px;margin:0 auto 4rem;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.04);">
-    <div style="background:var(--card2);padding:1.8rem;text-align:center;">
-      <div style="font-family:'Orbitron',sans-serif;font-size:1.5rem;font-weight:900;color:var(--blue);text-shadow:0 0 18px var(--blue);">1€</div>
-      <div style="font-size:.7rem;letter-spacing:2px;color:rgba(255,255,255,.35);margin-top:.4rem;">= 1 POINT GAGNÉ</div>
-    </div>
-    <div style="background:var(--card2);padding:1.8rem;text-align:center;border-left:1px solid rgba(255,255,255,.04);border-right:1px solid rgba(255,255,255,.04);">
-      <div style="font-family:'Orbitron',sans-serif;font-size:1.5rem;font-weight:900;color:var(--purple);text-shadow:0 0 18px var(--purple);">10 PTS</div>
-      <div style="font-size:.7rem;letter-spacing:2px;color:rgba(255,255,255,.35);margin-top:.4rem;">= 1€ OFFERT EN RÉCOMPENSE</div>
-    </div>
-    <div style="background:var(--card2);padding:1.8rem;text-align:center;">
-      <div style="font-family:'Orbitron',sans-serif;font-size:1.5rem;font-weight:900;color:var(--pink);text-shadow:0 0 18px var(--pink);">100€</div>
-      <div style="font-size:.7rem;letter-spacing:2px;color:rgba(255,255,255,.35);margin-top:.4rem;">POUR PREMIER DÉBLOQUAGE</div>
-    </div>
+  <div class="pts-ratio">
+    <div class="pts-ratio-item"><span class="pts-ratio-num" style="color:var(--bl);">1€</span><div class="pts-ratio-lbl">= 1 POINT GAGNÉ</div></div>
+    <div class="pts-ratio-item" style="border-left:1px solid rgba(255,255,255,.04);border-right:1px solid rgba(255,255,255,.04);"><span class="pts-ratio-num" style="color:var(--pu);">10 PTS</span><div class="pts-ratio-lbl">= 1€ EN RÉCOMPENSE</div></div>
+    <div class="pts-ratio-item"><span class="pts-ratio-num" style="color:var(--pk);">100€</span><div class="pts-ratio-lbl">PREMIER DÉBLOQUAGE</div></div>
   </div>
-
-  <!-- REWARDS TIMELINE -->
-  <div style="max-width:1100px;margin:0 auto;">
-    <div style="font-family:'Orbitron',sans-serif;font-size:.6rem;letter-spacing:5px;color:rgba(255,255,255,.3);text-align:center;margin-bottom:2.5rem;">— RÉCOMPENSES DÉBLOQUABLES —</div>
-
-    <div class="rewards-timeline">
-
-      <div class="rw-item rw-soft">
-        <div class="rw-pts-badge">100 PTS</div>
-        <div class="rw-line"></div>
-        <div class="rw-card">
-          <div class="rw-icon">🥤</div>
-          <div class="rw-name">SOFT DRINK</div>
-          <div class="rw-desc">1 boisson sans alcool offerte (eau, jus, soda) ajoutée à votre prochaine livraison</div>
-          <div class="rw-equiv">≈ 100€ d'achats cumulés</div>
-        </div>
-      </div>
-
-      <div class="rw-item rw-mixer">
-        <div class="rw-pts-badge">150 PTS</div>
-        <div class="rw-line"></div>
-        <div class="rw-card">
-          <div class="rw-icon">🧃</div>
-          <div class="rw-name">PACK MIXERS</div>
-          <div class="rw-desc">Pack de 3 sodas ou jus de fruits offert — parfaits pour vos cocktails maison</div>
-          <div class="rw-equiv">≈ 150€ d'achats cumulés</div>
-        </div>
-      </div>
-
-      <div class="rw-item rw-biere">
-        <div class="rw-pts-badge">200 PTS</div>
-        <div class="rw-line"></div>
-        <div class="rw-card">
-          <div class="rw-icon">🍺</div>
-          <div class="rw-name">BIÈRE CRAFT</div>
-          <div class="rw-desc">1 bière artisanale au choix parmi notre sélection offerte (valeur jusqu'à 4€)</div>
-          <div class="rw-equiv">≈ 200€ d'achats cumulés</div>
-        </div>
-      </div>
-
-      <div class="rw-item rw-vin">
-        <div class="rw-pts-badge">350 PTS</div>
-        <div class="rw-line"></div>
-        <div class="rw-card">
-          <div class="rw-icon">🍷</div>
-          <div class="rw-name">MINI VIN</div>
-          <div class="rw-desc">1 mini bouteille de vin (18.7cl) offerte + livraison prioritaire sur votre prochaine commande</div>
-          <div class="rw-equiv">≈ 350€ d'achats cumulés</div>
-        </div>
-      </div>
-
-      <div class="rw-item rw-shot">
-        <div class="rw-pts-badge">500 PTS</div>
-        <div class="rw-line"></div>
-        <div class="rw-card">
-          <div class="rw-icon">🥃</div>
-          <div class="rw-name">SHOT PREMIUM</div>
-          <div class="rw-desc">1 mignonnette spiritueux premium (5cl) offerte + livraison offerte sur la prochaine commande</div>
-          <div class="rw-equiv">≈ 500€ d'achats cumulés</div>
-        </div>
-      </div>
-
-      <div class="rw-item rw-bouteille">
-        <div class="rw-pts-badge">800 PTS</div>
-        <div class="rw-line"></div>
-        <div class="rw-card">
-          <div class="rw-icon">🍾</div>
-          <div class="rw-name">BOUTEILLE 37CL</div>
-          <div class="rw-desc">1 demi-bouteille (37.5cl) offerte parmi une sélection dédiée + accès prioritaire aux nouveautés</div>
-          <div class="rw-equiv">≈ 800€ d'achats cumulés</div>
-        </div>
-      </div>
-
-      <div class="rw-item rw-gold">
-        <div class="rw-pts-badge">1 500 PTS</div>
-        <div class="rw-line"></div>
-        <div class="rw-card">
-          <div class="rw-icon">🥂</div>
-          <div class="rw-name">BOUTEILLE 75CL</div>
-          <div class="rw-desc">1 bouteille entière (75cl) offerte au choix dans notre catalogue + livraison express prioritaire</div>
-          <div class="rw-equiv">≈ 1 500€ d'achats cumulés</div>
-        </div>
-      </div>
-
-      <div class="rw-item rw-vip">
-        <div class="rw-pts-badge">3 000 PTS</div>
-        <div class="rw-line"></div>
-        <div class="rw-card">
-          <div class="rw-icon">💎</div>
-          <div class="rw-name">STATUT VIP</div>
-          <div class="rw-desc">Bouteille Magnum offerte + livreur dédié + accès au catalogue exclusif VIP</div>
-          <div class="rw-equiv">≈ 3 000€ d'achats cumulés</div>
-        </div>
-      </div>
-
-    </div><!-- /timeline -->
-
-    <div style="margin-top:3rem;padding:1.4rem 2rem;background:rgba(255,215,0,.05);border:1px solid rgba(255,215,0,.2);border-radius:6px;max-width:700px;margin-left:auto;margin-right:auto;text-align:center;">
-      <div style="font-family:'Orbitron',sans-serif;font-size:.6rem;letter-spacing:3px;color:var(--gold);margin-bottom:.6rem;">⚡ BONUS POINTS</div>
-      <div style="font-size:.82rem;color:rgba(255,255,255,.5);line-height:1.8;">
-        Première commande <b style="color:var(--gold)">+10 pts</b> · Parrainage <b style="color:var(--gold)">+20 pts</b> · Commande weekend <b style="color:var(--gold)">+5 pts</b> · Avis client <b style="color:var(--gold)">+3 pts</b>
-    </div>
+  <div style="font-family:'Orbitron',sans-serif;font-size:.55rem;letter-spacing:4px;color:rgba(255,255,255,.25);text-align:center;margin-bottom:2rem;">— RÉCOMPENSES DÉBLOQUABLES —</div>
+  <div class="rewards-timeline">
+    <div class="rw-item rw-soft"><div class="rw-pts-badge">100 PTS</div><div class="rw-line"></div><div class="rw-card"><div class="rw-icon">🥤</div><div class="rw-name">SOFT DRINK</div><div class="rw-desc">1 boisson sans alcool offerte ajoutée à votre prochaine livraison</div><div class="rw-equiv">≈ 100€ cumulés</div></div></div>
+    <div class="rw-item rw-mixer"><div class="rw-pts-badge">150 PTS</div><div class="rw-line"></div><div class="rw-card"><div class="rw-icon">🧃</div><div class="rw-name">PACK MIXERS</div><div class="rw-desc">Pack 3 sodas ou jus offert, parfaits pour vos cocktails</div><div class="rw-equiv">≈ 150€ cumulés</div></div></div>
+    <div class="rw-item rw-biere"><div class="rw-pts-badge">200 PTS</div><div class="rw-line"></div><div class="rw-card"><div class="rw-icon">🍺</div><div class="rw-name">BIÈRE CRAFT</div><div class="rw-desc">1 bière artisanale au choix offerte (valeur jusqu'à 4€)</div><div class="rw-equiv">≈ 200€ cumulés</div></div></div>
+    <div class="rw-item rw-vin"><div class="rw-pts-badge">350 PTS</div><div class="rw-line"></div><div class="rw-card"><div class="rw-icon">🍷</div><div class="rw-name">MINI VIN</div><div class="rw-desc">1 mini bouteille de vin 18.7cl + livraison prioritaire</div><div class="rw-equiv">≈ 350€ cumulés</div></div></div>
+    <div class="rw-item rw-shot"><div class="rw-pts-badge">500 PTS</div><div class="rw-line"></div><div class="rw-card"><div class="rw-icon">🥃</div><div class="rw-name">SHOT PREMIUM</div><div class="rw-desc">1 mignonnette spiritueux 5cl + livraison offerte prochaine commande</div><div class="rw-equiv">≈ 500€ cumulés</div></div></div>
+    <div class="rw-item rw-bouteille"><div class="rw-pts-badge">800 PTS</div><div class="rw-line"></div><div class="rw-card"><div class="rw-icon">🍾</div><div class="rw-name">BOUTEILLE 37CL</div><div class="rw-desc">1 demi-bouteille 37.5cl offerte + accès prioritaire aux nouveautés</div><div class="rw-equiv">≈ 800€ cumulés</div></div></div>
+    <div class="rw-item rw-gold"><div class="rw-pts-badge">1 500 PTS</div><div class="rw-line"></div><div class="rw-card"><div class="rw-icon">🥂</div><div class="rw-name">BOUTEILLE 75CL</div><div class="rw-desc">1 bouteille entière 75cl offerte + livraison express prioritaire</div><div class="rw-equiv">≈ 1 500€ cumulés</div></div></div>
+    <div class="rw-item rw-vip"><div class="rw-pts-badge">3 000 PTS</div><div class="rw-line"></div><div class="rw-card"><div class="rw-icon">💎</div><div class="rw-name">STATUT VIP</div><div class="rw-desc">Magnum offert + livreur dédié + catalogue exclusif VIP</div><div class="rw-equiv">≈ 3 000€ cumulés</div></div></div>
+  </div>
+  <div class="bonus-box" style="margin-top:2.5rem;padding:1.2rem 1.5rem;background:rgba(255,215,0,.05);border:1px solid rgba(255,215,0,.18);border-radius:6px;max-width:650px;margin-left:auto;margin-right:auto;text-align:center;">
+    <div style="font-family:'Orbitron',sans-serif;font-size:.55rem;letter-spacing:3px;color:var(--go);margin-bottom:.5rem;">⚡ BONUS POINTS</div>
+    <p style="font-size:.78rem;color:rgba(255,255,255,.45);line-height:1.9;">Première commande <b style="color:var(--go)">+10 pts</b> · Parrainage <b style="color:var(--go)">+20 pts</b> · Commande weekend <b style="color:var(--go)">+5 pts</b> · Avis client <b style="color:var(--go)">+3 pts</b></p>
   </div>
 </section>
-
-<style>
-/* REWARDS TIMELINE */
-.rewards-timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;}
-.rw-item{display:flex;flex-direction:column;align-items:center;gap:.8rem;}
-.rw-pts-badge{font-family:'Orbitron',sans-serif;font-size:.65rem;font-weight:700;letter-spacing:2px;padding:5px 14px;border-radius:50px;white-space:nowrap;}
-.rw-soft .rw-pts-badge{background:rgba(57,255,20,.12);border:1px solid var(--green);color:var(--green);box-shadow:0 0 12px rgba(57,255,20,.2);}
-.rw-mixer .rw-pts-badge{background:rgba(57,255,20,.1);border:1px solid rgba(57,255,20,.6);color:var(--green);}
-.rw-biere .rw-pts-badge{background:rgba(255,215,0,.1);border:1px solid rgba(255,215,0,.5);color:var(--gold);}
-.rw-vin .rw-pts-badge{background:rgba(255,215,0,.12);border:1px solid var(--gold);color:var(--gold);box-shadow:0 0 12px rgba(255,215,0,.2);}
-.rw-shot .rw-pts-badge{background:rgba(255,0,110,.1);border:1px solid rgba(255,0,110,.5);color:var(--pink);}
-.rw-bouteille .rw-pts-badge{background:rgba(255,0,110,.12);border:1px solid var(--pink);color:var(--pink);box-shadow:0 0 12px rgba(255,0,110,.2);}
-.rw-gold .rw-pts-badge{background:rgba(0,245,255,.1);border:1px solid rgba(0,245,255,.5);color:var(--blue);}
-.rw-vip .rw-pts-badge{background:rgba(191,0,255,.15);border:1px solid var(--purple);color:var(--purple);box-shadow:0 0 16px rgba(191,0,255,.35);}
-.rw-line{width:1px;height:24px;background:rgba(255,255,255,.1);}
-.rw-card{background:var(--card2);border:1px solid rgba(255,255,255,.07);border-radius:6px;padding:1.3rem;text-align:center;width:100%;transition:all .3s;flex:1;}
-.rw-card:hover{transform:translateY(-5px);}
-.rw-soft .rw-card:hover{border-color:var(--green);box-shadow:0 12px 40px rgba(57,255,20,.15);}
-.rw-mixer .rw-card:hover{border-color:var(--green);box-shadow:0 12px 40px rgba(57,255,20,.12);}
-.rw-biere .rw-card:hover{border-color:var(--gold);box-shadow:0 12px 40px rgba(255,215,0,.15);}
-.rw-vin .rw-card:hover{border-color:var(--gold);box-shadow:0 12px 40px rgba(255,215,0,.18);}
-.rw-shot .rw-card:hover{border-color:var(--pink);box-shadow:0 12px 40px rgba(255,0,110,.15);}
-.rw-bouteille .rw-card:hover{border-color:var(--pink);box-shadow:0 12px 40px rgba(255,0,110,.18);}
-.rw-gold .rw-card:hover{border-color:var(--blue);box-shadow:0 12px 40px rgba(0,245,255,.15);}
-.rw-vip .rw-card:hover{border-color:var(--purple);box-shadow:0 12px 40px rgba(191,0,255,.25);}
-.rw-icon{font-size:2.2rem;margin-bottom:.7rem;}
-.rw-name{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:3px;margin-bottom:.5rem;}
-.rw-desc{font-size:.72rem;color:rgba(255,255,255,.38);line-height:1.6;margin-bottom:.7rem;}
-.rw-equiv{font-family:'Orbitron',sans-serif;font-size:.52rem;letter-spacing:1px;color:rgba(255,255,255,.2);}
-@media(max-width:900px){.rewards-timeline{grid-template-columns:repeat(2,1fr);}}
-@media(max-width:560px){.rewards-timeline{grid-template-columns:1fr;}}
-</style>
 
 <!-- FOOTER -->
 <footer>
   <div class="footer-g">
     <div>
-      <a class="logo" href="#" style="font-size:1.55rem;margin-bottom:1rem;display:inline-flex;">
+      <a class="logo" href="#" style="font-size:1.5rem;margin-bottom:.8rem;display:inline-flex;">
         <span class="lP">P</span><span class="lN">ESHO</span><span class="lT1">T</span><span class="lN">A</span><span class="lT2">T</span><span class="lEIL">EIL</span>
       </a>
-      <p class="footer-desc">Service de livraison d'alcool à domicile, disponible chaque soir de 18h à 6h. Paiement sécurisé, livraison express garantie, sélection premium.</p>
+      <p class="footer-desc">Livraison d'alcool à domicile, disponible de 18h à 6h. Paiement sécurisé, livraison express garantie en moins d'une heure.</p>
       <div class="footer-socials"><a class="soc" href="#" title="Instagram">📸</a><a class="soc" href="#" title="TikTok">🎵</a><a class="soc" href="#" title="Facebook">📘</a></div>
     </div>
     <div class="fc"><h4>Menu</h4><a href="#">Whiskies</a><a href="#">Champagnes</a><a href="#">Vins</a><a href="#">Bières</a><a href="#">Packs Soirée</a></div>
-    <div class="fc"><h4>Mon Compte</h4><a href="#">Connexion</a><a href="#">Mes commandes</a><a href="#">Mes points</a><a href="#">Parrainage</a></div>
-    <div class="fc"><h4>Infos</h4><a href="#">Mentions légales</a><a href="#">CGV</a><a href="#">Confidentialité</a><a href="#">Contact</a><a href="#">Zone de livraison</a></div>
+    <div class="fc"><h4>Compte</h4><a href="#">Connexion</a><a href="#">Commandes</a><a href="#">Mes points</a><a href="#">Parrainage</a></div>
+    <div class="fc"><h4>Infos</h4><a href="#">Mentions légales</a><a href="#">CGV</a><a href="#">Contact</a><a href="#">Livraison</a></div>
   </div>
   <div class="footer-b">
-    <p>© 2025 PeshoTaTeil — Tous droits réservés</p>
-    <p>🔒 Paiement sécurisé SSL · Visa · Mastercard · CB</p>
+    <p>© 2025 PeshoTaTeil</p>
+    <p>🔒 SSL · Visa · Mastercard · CB</p>
   </div>
   <span class="legal">⚠️ L'abus d'alcool est dangereux pour la santé. À consommer avec modération. Vente interdite aux mineurs.</span>
 </footer>
 </div><!-- /mainSite -->
 
 <!-- CART DRAWER -->
-<div class="drawer-ov" id="cartDrawer" onclick="handleDrawerClick(event)">
-  <div class="drawer" onclick="event.stopPropagation()">
+<div class="drawer-ov" id="cartDrawer">
+  <div class="drawer">
     <div class="drawer-head">
       <div class="drawer-title">MON PANIER</div>
       <button class="d-close" onclick="closeCart()">✕</button>
@@ -584,149 +488,150 @@ footer{position:relative;z-index:1;background:rgba(4,4,10,.97);border-top:1px so
     <div class="drawer-items" id="drawerItems"></div>
     <div class="drawer-foot" id="drawerFoot" style="display:none;">
       <div class="promo-row">
-        <input class="promo-inp" placeholder="Code promo (ex: NIGHT10)" id="promoInput" />
-        <button class="promo-btn" onclick="applyPromo()">APPLIQUER</button>
+        <input class="promo-inp" placeholder="Code promo…" id="promoInput" />
+        <button class="promo-btn" onclick="applyPromo()">OK</button>
       </div>
       <div class="totals" id="cartTotals"></div>
       <div class="pts-earn" id="cartPtsEarn"></div>
-      <button class="btn-checkout" onclick="openCheckout()">PASSER LA COMMANDE →</button>
+      <button class="btn-checkout" onclick="openCheckout()">COMMANDER →</button>
     </div>
   </div>
 </div>
 
 <!-- CHECKOUT MODAL -->
-<div class="modal-ov" id="checkoutModal" onclick="handleModalClick(event)">
-  <div class="modal" onclick="event.stopPropagation()">
+<div class="modal-ov" id="checkoutModal">
+  <div class="modal" id="modalInner">
+    <div class="modal-handle"></div>
     <div class="modal-hd">
-      <div><div class="modal-title">FINALISER</div><div class="modal-sub">Livraison sous 60 min · Paiement 100% sécurisé</div></div>
+      <div><div class="modal-title">FINALISER</div><div class="modal-sub">Livraison en moins d'une heure · Paiement sécurisé</div></div>
       <button class="modal-x" onclick="closeCheckout()">✕</button>
     </div>
 
+    <!-- LOCALISATION -->
     <div class="fg">
-      <label class="fl">📍 Ma localisation</label>
+      <label class="fl">📍 Localisation</label>
       <div class="loc-tabs">
-        <div class="loc-tab on" id="tab-gps"  onclick="switchLocTab('gps')">📡 GPS AUTO</div>
-        <div class="loc-tab"    id="tab-map"  onclick="switchLocTab('map')">🗺️ CARTE</div>
+        <div class="loc-tab on" id="tab-gps"    onclick="switchLocTab('gps')">📡 GPS</div>
+        <div class="loc-tab"    id="tab-map"    onclick="switchLocTab('map')">🗺️ CARTE</div>
         <div class="loc-tab"    id="tab-manual" onclick="switchLocTab('manual')">⌨️ MANUEL</div>
       </div>
 
-      <!-- GPS panel -->
+      <!-- GPS -->
       <div id="panel-gps">
         <div class="map-box" id="gpsBox" onclick="startGPS()">
           <div class="map-ico" id="gpsIco">📍</div>
-          <div class="map-lbl" id="gpsLbl">CLIQUEZ POUR DÉTECTER MA POSITION</div>
+          <div class="map-lbl" id="gpsLbl">DÉTECTER MA POSITION GPS</div>
           <div class="map-status" id="gpsStatus">Utilise le GPS de votre appareil</div>
         </div>
-        <div id="gpsResult" style="display:none;padding:.9rem 1rem;background:rgba(57,255,20,.07);border:1px solid rgba(57,255,20,.3);border-radius:5px;margin-bottom:.8rem;">
-          <div style="font-size:.65rem;letter-spacing:2px;color:var(--green);margin-bottom:.4rem;">✅ POSITION DÉTECTÉE</div>
-          <div id="gpsAddr" style="font-size:.88rem;color:#fff;font-weight:600;"></div>
-          <div id="gpsCoords" style="font-size:.65rem;color:rgba(255,255,255,.35);margin-top:.2rem;font-family:'Orbitron',sans-serif;"></div>
+        <div class="loc-result ok" id="gpsResult">
+          <div class="lr-label">✅ POSITION DÉTECTÉE</div>
+          <div class="lr-addr" id="gpsAddr"></div>
+          <div class="lr-coords" id="gpsCoords"></div>
         </div>
       </div>
 
-      <!-- MAP panel -->
+      <!-- MAP -->
       <div id="panel-map" style="display:none;">
-        <div style="font-size:.7rem;color:rgba(255,255,255,.35);letter-spacing:1px;margin-bottom:.6rem;">Cliquez sur la carte pour épingler votre position</div>
-        <div id="leafletMap" style="width:100%;height:240px;border-radius:5px;border:1px solid rgba(0,245,255,.2);overflow:hidden;"></div>
-        <div id="mapResult" style="display:none;padding:.7rem 1rem;background:rgba(0,245,255,.06);border:1px solid rgba(0,245,255,.2);border-radius:5px;margin-top:.7rem;">
-          <div style="font-size:.62rem;letter-spacing:2px;color:var(--blue);margin-bottom:.3rem;">📍 POSITION SÉLECTIONNÉE</div>
-          <div id="mapAddr" style="font-size:.85rem;color:#fff;"></div>
+        <div style="font-size:.65rem;color:rgba(255,255,255,.32);letter-spacing:1px;margin-bottom:.5rem;">Touchez la carte pour épingler votre position</div>
+        <div id="leafletMap"></div>
+        <div class="loc-result ok" id="mapResult" style="margin-top:.7rem;">
+          <div class="lr-label">📍 POSITION SÉLECTIONNÉE</div>
+          <div class="lr-addr" id="mapAddr"></div>
         </div>
       </div>
 
-      <!-- MANUAL panel -->
+      <!-- MANUAL -->
       <div id="panel-manual" style="display:none;">
-        <input class="fi" id="manualAddr" type="text" placeholder="Numéro et rue…" style="margin-bottom:.7rem;" />
+        <input class="fi" id="manualAddr" type="text" placeholder="Numéro et rue…" style="margin-bottom:.7rem;" autocomplete="street-address" />
         <div class="f2" style="margin-bottom:.7rem;">
-          <input class="fi" id="manualCity" type="text" placeholder="Ville" />
-          <input class="fi" id="manualZip"  type="text" placeholder="Code postal" />
+          <input class="fi" id="manualCity" type="text" placeholder="Ville" autocomplete="address-level2" />
+          <input class="fi" id="manualZip"  type="text" placeholder="Code postal" inputmode="numeric" autocomplete="postal-code" />
         </div>
-        <button onclick="validateManual()" style="width:100%;padding:10px;background:rgba(0,245,255,.1);border:1px solid rgba(0,245,255,.4);color:var(--blue);font-family:'Orbitron',sans-serif;font-size:.65rem;letter-spacing:2px;cursor:pointer;border-radius:4px;transition:all .25s;" onmouseover="this.style.background='rgba(0,245,255,.2)'" onmouseout="this.style.background='rgba(0,245,255,.1)'">VALIDER CETTE ADRESSE</button>
-        <div id="manualResult" style="display:none;padding:.7rem 1rem;background:rgba(57,255,20,.07);border:1px solid rgba(57,255,20,.3);border-radius:5px;margin-top:.7rem;">
-          <div style="font-size:.62rem;letter-spacing:2px;color:var(--green);margin-bottom:.3rem;">✅ ADRESSE ENREGISTRÉE</div>
-          <div id="manualAddr2" style="font-size:.85rem;color:#fff;"></div>
+        <button onclick="validateManual()" style="width:100%;padding:11px;background:rgba(0,245,255,.1);border:1px solid rgba(0,245,255,.35);color:var(--bl);font-family:'Orbitron',sans-serif;font-size:.6rem;letter-spacing:2px;cursor:pointer;border-radius:4px;touch-action:manipulation;">VALIDER CETTE ADRESSE</button>
+        <div class="loc-result ok" id="manualResult" style="margin-top:.7rem;">
+          <div class="lr-label">✅ ADRESSE ENREGISTRÉE</div>
+          <div class="lr-addr" id="manualAddr2"></div>
         </div>
       </div>
 
-      <input class="fi" type="text" placeholder="Précisions : digicode, étage, bâtiment, interphone…" style="margin-top:.8rem;" id="locDetail" />
+      <input class="fi" type="text" placeholder="Précisions : digicode, étage, interphone…" style="margin-top:.7rem;" id="locDetail" autocomplete="off" />
     </div>
 
-    <div class="fdiv"><span>INFORMATIONS PERSONNELLES</span></div>
+    <div class="fdiv"><span>INFORMATIONS</span></div>
     <div class="f2">
-      <div class="fg"><label class="fl">👤 Prénom & Nom</label><input class="fi" type="text" placeholder="Jean Dupont" /></div>
-      <div class="fg"><label class="fl">📞 Téléphone</label><input class="fi" type="tel" placeholder="06 XX XX XX XX" /></div>
+      <div class="fg"><label class="fl">👤 Prénom & Nom</label><input class="fi" type="text" id="fName" placeholder="Jean Dupont" autocomplete="name" /></div>
+      <div class="fg"><label class="fl">📞 Téléphone</label><input class="fi" type="tel" id="fPhone" placeholder="06 XX XX XX XX" autocomplete="tel" inputmode="tel" /></div>
     </div>
-    <div class="fg"><label class="fl">✉️ Email</label><input class="fi" type="email" placeholder="jean@exemple.fr" /></div>
-    <div class="fg"><label class="fl">📅 Date de naissance</label><input class="fi" type="date" /></div>
+    <div class="fg"><label class="fl">✉️ Email</label><input class="fi" type="email" id="fEmail" placeholder="jean@exemple.fr" autocomplete="email" inputmode="email" /></div>
+    <div class="fg"><label class="fl">📅 Date de naissance</label><input class="fi" type="date" id="fDob" /></div>
 
     <div class="age-box">
       <input type="checkbox" id="ageConfirm" />
-      <label for="ageConfirm" class="age-txt">Je certifie sur l'honneur être <strong>majeur(e) (18 ans ou plus)</strong> et avoir le droit légal d'acheter des boissons alcoolisées. Je comprends que la vente aux mineurs est un délit.</label>
+      <label for="ageConfirm" class="age-txt">Je certifie sur l'honneur être <strong>majeur(e) (18 ans ou plus)</strong> et avoir le droit légal d'acheter des boissons alcoolisées.</label>
     </div>
 
-    <div class="fdiv"><span>PAIEMENT SÉCURISÉ</span></div>
+    <div class="fdiv"><span>PAIEMENT</span></div>
     <div class="pay-block">
-      <div class="pay-title">💳 CARTE BANCAIRE</div>
+      <div class="pay-title">💳 CARTE BANCAIRE SÉCURISÉE</div>
       <div class="card-logos"><span class="clogo">VISA</span><span class="clogo">MASTERCARD</span><span class="clogo">CB</span><span class="clogo">AMEX</span></div>
-      <div class="fg"><label class="fl">Numéro de carte</label><input class="fi" type="text" placeholder="•••• •••• •••• ••••" maxlength="19" /></div>
+      <div class="fg"><label class="fl">Numéro de carte</label><input class="fi" id="fCard" type="text" placeholder="•••• •••• •••• ••••" maxlength="19" inputmode="numeric" /></div>
       <div class="f2">
-        <div class="fg"><label class="fl">Expiration</label><input class="fi" type="text" placeholder="MM / AA" /></div>
-        <div class="fg"><label class="fl">CVV</label><input class="fi" type="text" placeholder="•••" maxlength="4" /></div>
+        <div class="fg"><label class="fl">Expiration</label><input class="fi" id="fExp" type="text" placeholder="MM / AA" maxlength="7" inputmode="numeric" /></div>
+        <div class="fg"><label class="fl">CVV</label><input class="fi" id="fCvv" type="text" placeholder="•••" maxlength="4" inputmode="numeric" /></div>
       </div>
-      <div class="ssl-line">🔒 SSL 256-bit · Données chiffrées · Certifié 3D Secure</div>
+      <div class="ssl-line">🔒 SSL 256-bit · Données chiffrées · 3D Secure</div>
     </div>
 
     <div class="order-sum" id="modalSummary"></div>
-
-    <button class="btn-pay" onclick="confirmOrder()">
-      🚀 CONFIRMER & PAYER — <span id="payBtn">0€</span>
-    </button>
-    <p style="text-align:center;font-size:.62rem;color:rgba(255,255,255,.16);margin-top:.9rem;letter-spacing:1px;">⚠️ L'abus d'alcool est dangereux pour la santé. À consommer avec modération.</p>
+    <button class="btn-pay" onclick="confirmOrder()">🚀 CONFIRMER & PAYER — <span id="payBtn">0€</span></button>
+    <p style="text-align:center;font-size:.58rem;color:rgba(255,255,255,.14);margin-top:.8rem;">⚠️ L'abus d'alcool est dangereux pour la santé.</p>
   </div>
 </div>
 
 <!-- CONFIRMATION -->
-<div id="confirmScreen" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:4000;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;">
-  <div style="font-size:4rem;margin-bottom:1.5rem;animation:bounce .5s ease infinite alternate;">🎉</div>
-  <div style="font-family:'Bebas Neue',sans-serif;font-size:3.5rem;letter-spacing:6px;color:var(--green);text-shadow:0 0 30px var(--green);margin-bottom:.8rem;">COMMANDE CONFIRMÉE</div>
-  <div style="font-family:'Orbitron',sans-serif;font-size:.75rem;letter-spacing:3px;color:rgba(255,255,255,.45);margin-bottom:2.5rem;">Votre livreur prépare votre commande</div>
-  <div style="padding:1.4rem 3rem;background:rgba(57,255,20,.07);border:1px solid rgba(57,255,20,.4);border-radius:6px;margin-bottom:2rem;">
-    <div style="font-family:'Orbitron',sans-serif;font-size:.6rem;letter-spacing:3px;color:var(--green);margin-bottom:.5rem;">⏱ ARRIVÉE ESTIMÉE</div>
-    <div style="font-family:'Bebas Neue',sans-serif;font-size:3.5rem;letter-spacing:4px;" id="etaDisplay">54 MIN</div>
+<div id="confirmScreen">
+  <div style="font-size:3.5rem;margin-bottom:1rem;">🎉</div>
+  <div class="conf-title">COMMANDE CONFIRMÉE</div>
+  <div style="font-family:'Orbitron',sans-serif;font-size:.65rem;letter-spacing:2px;color:rgba(255,255,255,.4);margin-bottom:1.5rem;">Votre livreur prépare votre commande</div>
+  <div class="conf-eta-box">
+    <div class="conf-eta-lbl">⏱ ARRIVÉE ESTIMÉE</div>
+    <div class="conf-eta-num" id="etaDisplay">52 MIN</div>
   </div>
-  <div style="font-size:.78rem;color:rgba(255,255,255,.32);letter-spacing:1px;margin-bottom:1.5rem;">Un SMS de confirmation a été envoyé</div>
-  <div style="font-size:.82rem;color:var(--gold);" id="ptsConfirm">🏆 +0 points ajoutés à votre compte !</div>
-  <button onclick="document.getElementById('confirmScreen').style.display='none';" style="margin-top:2rem;background:transparent;border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.38);padding:10px 32px;cursor:pointer;font-family:'Orbitron',sans-serif;font-size:.62rem;letter-spacing:2px;border-radius:4px;transition:all .3s;" onmouseover="this.style.borderColor='var(--blue)';this.style.color='var(--blue)'" onmouseout="this.style.borderColor='rgba(255,255,255,.15)';this.style.color='rgba(255,255,255,.38)'">FERMER</button>
+  <div style="font-size:.75rem;color:rgba(255,255,255,.3);letter-spacing:1px;margin-bottom:1rem;">Un SMS de confirmation a été envoyé</div>
+  <div style="font-size:.8rem;color:var(--go);margin-bottom:1.5rem;" id="ptsConfirm">🏆 +0 points ajoutés</div>
+  <button onclick="document.getElementById('confirmScreen').style.display='none'" style="background:transparent;border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.4);padding:10px 28px;cursor:pointer;font-family:'Orbitron',sans-serif;font-size:.6rem;letter-spacing:2px;border-radius:4px;touch-action:manipulation;">FERMER</button>
 </div>
 
-<style>@keyframes bounce{from{transform:translateY(0);}to{transform:translateY(-12px);}}</style>
-
 <script>
+/* ════ DATA ════ */
 const PRODUCTS=[
-  {id:1,name:'Moët & Chandon',cat:'champagne',cat2:'Champagne Brut',desc:'Brut Impérial · 75cl · Notes de poire et vanille',price:42,icon:'🍾',color:'pk',badge:'b-hot',bl:'HOT 🔥'},
-  {id:2,name:'Glenfiddich 12',cat:'whisky',cat2:'Whisky Single Malt',desc:'Speyside · 70cl · Tourbé, fruité, élégant',price:38,icon:'🥃',color:'gd',badge:'b-promo',bl:'−15%'},
-  {id:3,name:"Hendrick's Gin",cat:'gin',cat2:'Gin Premium',desc:'Écossais · 70cl · Concombre & Rose',price:32,icon:'🍸',color:'bl',badge:'b-new',bl:'NEW'},
-  {id:4,name:'Château Margaux',cat:'vin',cat2:'Vin Rouge AOC',desc:'Bordeaux · 75cl · Tannins soyeux, grand millésime',price:89,icon:'🍷',color:'pu',badge:'',bl:''},
-  {id:5,name:'Pack Craft Beer',cat:'biere',cat2:'Bière Craft Pack',desc:'12 bières artisanales · Sélection de la semaine',price:28,icon:'🍺',color:'gr',badge:'b-hot',bl:'BEST 🏆'},
-  {id:6,name:'Pack VIP Night',cat:'pack',cat2:'Pack Soirée',desc:'Champagne + Vodka + Mixers · Pour 6 personnes',price:95,icon:'🥂',color:'pk',badge:'',bl:''},
-  {id:7,name:'Diplomatico 12',cat:'gin',cat2:'Rhum Premium',desc:'Venezuela · 70cl · Caramel, épices, onctueux',price:44,icon:'🍹',color:'gd',badge:'b-new',bl:'NEW'},
-  {id:8,name:'Belvedere Pure',cat:'pack',cat2:'Vodka Premium',desc:'Polonaise · 70cl · Distillée 4 fois, veloutée',price:36,icon:'🫧',color:'bl',badge:'',bl:''},
-  {id:9,name:'Veuve Clicquot',cat:'champagne',cat2:'Champagne Rosé',desc:'Rosé · 75cl · Fraise, abricot, biscuité',price:58,icon:'🥂',color:'pk',badge:'',bl:''},
-  {id:10,name:'Jameson Irish',cat:'whisky',cat2:'Whisky Irlandais',desc:'Triple distillé · 70cl · Doux et fruité',price:26,icon:'🥃',color:'gd',badge:'b-promo',bl:'−10%'},
+  {id:1,name:'Moët & Chandon',cat:'champagne',cat2:'Champagne',desc:'Brut Impérial · 75cl',price:42,icon:'🍾',color:'pk',badge:'b-hot',bl:'HOT'},
+  {id:2,name:'Glenfiddich 12', cat:'whisky',   cat2:'Whisky',   desc:'Speyside · 70cl',    price:38,icon:'🥃',color:'gd',badge:'b-promo',bl:'−15%'},
+  {id:3,name:"Hendrick's",     cat:'gin',      cat2:'Gin',      desc:'Écossais · 70cl',    price:32,icon:'🍸',color:'bl',badge:'b-new',bl:'NEW'},
+  {id:4,name:'Château Margaux',cat:'vin',      cat2:'Vin Rouge',desc:'Bordeaux · 75cl',    price:89,icon:'🍷',color:'pu',badge:'',bl:''},
+  {id:5,name:'Pack Craft Beer',cat:'biere',    cat2:'Bière Craft',desc:'Pack 12 bières',   price:28,icon:'🍺',color:'gr',badge:'b-hot',bl:'TOP'},
+  {id:6,name:'Pack VIP Night', cat:'pack',     cat2:'Pack Soirée',desc:'Champagne+Vodka',  price:95,icon:'🥂',color:'pk',badge:'',bl:''},
+  {id:7,name:'Diplomatico 12', cat:'gin',      cat2:'Rhum',     desc:'Venezuela · 70cl',   price:44,icon:'🍹',color:'gd',badge:'b-new',bl:'NEW'},
+  {id:8,name:'Belvedere Pure', cat:'pack',     cat2:'Vodka',    desc:'Polonaise · 70cl',   price:36,icon:'🫧',color:'bl',badge:'',bl:''},
+  {id:9,name:'Veuve Clicquot', cat:'champagne',cat2:'Champagne',desc:'Rosé · 75cl',        price:58,icon:'🥂',color:'pk',badge:'',bl:''},
+  {id:10,name:'Jameson Irish', cat:'whisky',   cat2:'Whisky',   desc:'Irlandais · 70cl',   price:26,icon:'🥃',color:'gd',badge:'b-promo',bl:'−10%'},
 ];
 
-let cart={};
+/* ════ STATE ════ */
+let cart={}, locMode='gps', leafletMap=null, leafletMarker=null, locConfirmed=false;
 
+/* ════ HELPERS ════ */
+const $=id=>document.getElementById(id);
 const gp=id=>PRODUCTS.find(p=>p.id===id);
-const cartTotal=()=>Object.entries(cart).reduce((s,[id,q])=>{const p=gp(Number(id));return p?s+p.price*q:s;},0);
+const cartTotal=()=>Object.entries(cart).reduce((s,[id,q])=>{const p=gp(+id);return p?s+p.price*q:s;},0);
 const cartCount=()=>Object.values(cart).reduce((s,q)=>s+q,0);
+function scrollTo(id){const el=$(id);if(el)el.scrollIntoView({behavior:'smooth'});}
 
-/* RENDER PRODUCTS */
+/* ════ RENDER PRODUCTS ════ */
 function renderProducts(f='all'){
   const list=f==='all'?PRODUCTS:PRODUCTS.filter(p=>p.cat===f);
-  document.getElementById('productGrid').innerHTML=list.map(p=>`
+  $('productGrid').innerHTML=list.map(p=>`
     <div class="card ${p.color}">
-      <div class="card-glow"></div>
       ${p.badge?`<span class="card-badge ${p.badge}">${p.bl}</span>`:''}
       <div class="card-icon">${p.icon}</div>
       <div class="card-cat">${p.cat2}</div>
@@ -734,17 +639,17 @@ function renderProducts(f='all'){
       <div class="card-desc">${p.desc}</div>
       <div class="card-foot">
         <span class="card-price">${p.price}€</span>
-        <button class="btn-add" onclick="addToCart(${p.id},event)">+</button>
+        <button class="btn-add" onclick="addToCart(${p.id},event)" aria-label="Ajouter ${p.name}">+</button>
       </div>
     </div>`).join('');
 }
 
-/* CART */
+/* ════ CART ════ */
 function addToCart(id,e){
   e&&e.stopPropagation();
   cart[id]=(cart[id]||0)+1;
   updateNav();bump();
-  showToast(gp(id).name+' ajouté au panier');
+  toast(gp(id).name+' ajouté ✓');
 }
 function changeQty(id,d){
   const n=(cart[id]||0)+d;
@@ -752,284 +657,267 @@ function changeQty(id,d){
   updateNav();renderDrawer();
 }
 function removeItem(id){delete cart[id];updateNav();renderDrawer();}
-function updateNav(){document.getElementById('cartCount').textContent=cartCount();}
-function bump(){const el=document.getElementById('cartCount');el.classList.add('bump');setTimeout(()=>el.classList.remove('bump'),200);}
+function updateNav(){$('cartCount').textContent=cartCount();}
+function bump(){const el=$('cartCount');el.classList.add('bump');setTimeout(()=>el.classList.remove('bump'),200);}
 
-/* DRAWER */
-function openCart(){renderDrawer();document.getElementById('cartDrawer').classList.add('open');document.body.style.overflow='hidden';}
-function closeCart(){document.getElementById('cartDrawer').classList.remove('open');document.body.style.overflow='';}
-function handleDrawerClick(e){if(e.target===document.getElementById('cartDrawer'))closeCart();}
+/* ════ DRAWER ════ */
+function openCart(){renderDrawer();$('cartDrawer').classList.add('open');document.body.style.overflow='hidden';}
+function closeCart(){$('cartDrawer').classList.remove('open');document.body.style.overflow='';}
+
+// Close drawer on overlay tap
+$('cartDrawer').addEventListener('click',e=>{if(e.target===$('cartDrawer'))closeCart();});
 
 function renderDrawer(){
-  const items=document.getElementById('drawerItems');
-  const foot=document.getElementById('drawerFoot');
-  const ids=Object.keys(cart);
+  const items=$('drawerItems'),foot=$('drawerFoot'),ids=Object.keys(cart);
   if(!ids.length){
-    items.innerHTML=`<div class="cart-empty"><div class="eico">🛒</div><p>VOTRE PANIER EST VIDE</p><p style="margin-top:.5rem;font-size:.58rem;opacity:.55;">Ajoutez des bouteilles depuis la vitrine</p></div>`;
+    items.innerHTML='<div class="cart-empty"><div class="eico">🛒</div><p>PANIER VIDE</p><p style="margin-top:.4rem;font-size:.52rem;opacity:.5;">Ajoutez des bouteilles</p></div>';
     foot.style.display='none';return;
   }
   foot.style.display='block';
   items.innerHTML=ids.map(id=>{
-    const p=gp(Number(id));if(!p)return'';
-    const q=cart[id],sub=p.price*q;
+    const p=gp(+id);if(!p)return'';
+    const q=cart[id];
     return`<div class="ci">
       <div class="ci-icon">${p.icon}</div>
       <div class="ci-info"><div class="ci-name">${p.name}</div><div class="ci-sub">${p.price}€ / unité</div></div>
       <div class="ci-qty">
-        <button class="qb minus" onclick="changeQty(${p.id},-1)">−</button>
+        <button class="qb minus" onclick="changeQty(${p.id},-1)" aria-label="Moins">−</button>
         <span class="qn">${q}</span>
-        <button class="qb" onclick="changeQty(${p.id},+1)">+</button>
+        <button class="qb" onclick="changeQty(${p.id},+1)" aria-label="Plus">+</button>
       </div>
-      <span class="ci-price">${sub}€</span>
-      <button class="ci-del" onclick="removeItem(${p.id})" title="Supprimer">✕</button>
+      <span class="ci-price">${p.price*q}€</span>
+      <button class="ci-del" onclick="removeItem(${p.id})" aria-label="Supprimer">✕</button>
     </div>`;
   }).join('');
-  const t=cartTotal(),pts=t*10;
-  document.getElementById('cartTotals').innerHTML=`
+  const t=cartTotal();
+  $('cartTotals').innerHTML=`
     <div class="tr"><span>Sous-total</span><span class="v">${t}€</span></div>
-    <div class="tr"><span>Livraison</span><span class="v" style="color:var(--green)">OFFERTE</span></div>
+    <div class="tr"><span>Livraison</span><span class="v" style="color:var(--gr)">OFFERTE</span></div>
     <div class="tr main"><span>TOTAL</span><span class="v">${t}€</span></div>`;
-  document.getElementById('cartPtsEarn').innerHTML=`★ Cette commande vous rapportera <strong style="color:var(--green);margin-left:.3rem;">+${t} points</strong>`;
+  $('cartPtsEarn').innerHTML=`★ +${t} points fidélité pour cette commande`;
 }
 
-/* CHECKOUT handled above */
-function closeCheckout2(){document.getElementById('checkoutModal').classList.remove('open');document.body.style.overflow='';}
-function handleModalClick(e){if(e.target===document.getElementById('checkoutModal'))closeCheckout();}
-
+/* ════ CHECKOUT ════ */
 function openCheckout(){
   if(!cartCount())return;
   closeCart();
-  // Reset location panels to GPS tab
-  switchLocTabReset();
+  resetLocUI();
   const t=cartTotal();
-  document.getElementById('payBtn').textContent=t+'€';
+  $('payBtn').textContent=t+'€';
   const rows=Object.entries(cart).map(([id,q])=>{
-    const p=gp(Number(id));
+    const p=gp(+id);
     return p?`<div class="sum-row"><span>${p.icon} ${p.name} ×${q}</span><span class="v">${p.price*q}€</span></div>`:'';
   }).join('');
-  document.getElementById('modalSummary').innerHTML=`
-    <div class="sum-title">RÉCAPITULATIF DE LA COMMANDE</div>
-    ${rows}
-    <div class="sum-row"><span>Livraison express</span><span style="color:var(--green);font-family:'Orbitron',sans-serif;font-size:.72rem;">OFFERTE</span></div>
-    <div class="sum-total"><span class="lbl">TOTAL À PAYER</span><span class="amt">${t}€</span></div>
-    <div style="font-size:.7rem;color:var(--green);margin-top:.6rem;">★ +${t} points fidélité crédités après livraison</div>`;
-  document.getElementById('checkoutModal').classList.add('open');
+  $('modalSummary').innerHTML=`
+    <div class="sum-title">RÉCAPITULATIF</div>${rows}
+    <div class="sum-row"><span>Livraison express</span><span style="color:var(--gr);font-family:'Orbitron',sans-serif;font-size:.7rem;">OFFERTE</span></div>
+    <div class="sum-total"><span class="lbl">TOTAL</span><span class="amt">${t}€</span></div>
+    <div style="font-size:.65rem;color:var(--gr);margin-top:.5rem;">★ +${t} points crédités après livraison</div>`;
+  $('checkoutModal').classList.add('open');
   document.body.style.overflow='hidden';
-  // Invalidate map if it was already loaded
-  if(leafletMap) setTimeout(()=>leafletMap.invalidateSize(),350);
+  if(leafletMap)setTimeout(()=>leafletMap.invalidateSize(),350);
 }
-
-function switchLocTabReset(){
-  locMode='gps'; locConfirmed=false;
-  ['gps','map','manual'].forEach(m=>{
-    document.getElementById('tab-'+m).classList.toggle('on', m==='gps');
-    document.getElementById('panel-'+m).style.display = m==='gps' ? 'block' : 'none';
-  });
-  // Reset GPS panel state
-  document.getElementById('gpsBox').style.display='flex';
-  document.getElementById('gpsBox').style.pointerEvents='auto';
-  document.getElementById('gpsResult').style.display='none';
-  document.getElementById('gpsIco').textContent='📍';
-  document.getElementById('gpsLbl').textContent='CLIQUEZ POUR DÉTECTER MA POSITION';
-  document.getElementById('gpsStatus').textContent='Utilise le GPS de votre appareil';
-  document.getElementById('gpsStatus').style.color='rgba(255,255,255,.22)';
-  document.getElementById('mapResult').style.display='none';
-  document.getElementById('manualResult').style.display='none';
-}
+function closeCheckout(){$('checkoutModal').classList.remove('open');document.body.style.overflow='';}
+$('checkoutModal').addEventListener('click',e=>{if(e.target===$('checkoutModal'))closeCheckout();});
 
 function confirmOrder(){
-  if(!document.getElementById('ageConfirm').checked){alert('⚠️ Vous devez certifier être majeur(e) pour passer commande.');return;}
-  const t=cartTotal(),eta=Math.floor(Math.random()*20)+40;
+  if(!$('ageConfirm').checked){toast('Certifiez être majeur(e) pour commander','err');return;}
+  const t=cartTotal(),eta=Math.floor(Math.random()*15)+42;
   closeCheckout();
-  document.getElementById('etaDisplay').textContent=eta+' MIN';
-  document.getElementById('ptsConfirm').textContent='🏆 +'+t+' points ajoutés à votre compte !';
-  const cs=document.getElementById('confirmScreen');cs.style.display='flex';
+  $('etaDisplay').textContent=eta+' MIN';
+  $('ptsConfirm').textContent='🏆 +'+t+' points ajoutés à votre compte !';
+  const cs=$('confirmScreen');cs.style.display='flex';
   cart={};updateNav();
 }
 
-/* PROMO */
+/* ════ PROMO ════ */
 function applyPromo(){
-  const v=document.getElementById('promoInput').value.toUpperCase().trim();
+  const v=$('promoInput').value.toUpperCase().trim();
   const ok=['NIGHT10','PTT10','SOIREE','PESHO'].includes(v);
-  showToast(ok?'Code promo appliqué ! −10% 🎉':'Code invalide ou expiré',ok?'ok':'err');
-  document.getElementById('promoInput').style.borderColor=ok?'var(--green)':'var(--pink)';
+  toast(ok?'Code promo appliqué ! 🎉':'Code invalide',ok?'ok':'err');
+  $('promoInput').style.borderColor=ok?'var(--gr)':'var(--pk)';
 }
 
-/* TOAST */
-function showToast(msg,type='ok'){
-  const t=document.createElement('div');
-  const col=type==='ok'?'var(--green)':'var(--pink)';
-  const bg=type==='ok'?'rgba(57,255,20,.12)':'rgba(255,0,110,.12)';
-  t.style.cssText=`position:fixed;bottom:2rem;right:2rem;z-index:9990;padding:11px 20px;border-radius:5px;font-family:'Orbitron',sans-serif;font-size:.62rem;letter-spacing:2px;pointer-events:none;transition:opacity .4s,transform .4s;background:${bg};border:1px solid ${col};color:${col};box-shadow:0 0 20px ${col}33;`;
-  t.textContent=msg;document.body.appendChild(t);
-  setTimeout(()=>{t.style.opacity='0';t.style.transform='translateY(8px)';},1900);
-  setTimeout(()=>t.remove(),2400);
-}
-
-/* HELPERS */
-function filterCat(btn,cat){
-  document.querySelectorAll('.cat').forEach(c=>c.classList.remove('on'));
-  btn.classList.add('on');renderProducts(cat);
-}
-
-/* ── LOCATION SYSTEM ── */
-let locMode='gps', leafletMap=null, leafletMarker=null, locConfirmed=false;
-
+/* ════ LOCATION ════ */
 function switchLocTab(mode){
   locMode=mode;
   ['gps','map','manual'].forEach(m=>{
-    document.getElementById('tab-'+m).classList.toggle('on', m===mode);
-    document.getElementById('panel-'+m).style.display = m===mode ? 'block' : 'none';
+    $('tab-'+m).classList.toggle('on',m===mode);
+    $('panel-'+m).style.display=m===mode?'block':'none';
   });
-  if(mode==='map') initMap();
+  if(mode==='map')initMap();
 }
 
-/* GPS */
+function resetLocUI(){
+  locMode='gps';locConfirmed=false;
+  ['gps','map','manual'].forEach(m=>{
+    $('tab-'+m).classList.toggle('on',m==='gps');
+    $('panel-'+m).style.display=m==='gps'?'block':'none';
+  });
+  $('gpsBox').style.display='flex';
+  $('gpsBox').style.pointerEvents='auto';
+  $('gpsResult').style.display='none';
+  $('gpsIco').textContent='📍';
+  $('gpsLbl').textContent='DÉTECTER MA POSITION GPS';
+  $('gpsStatus').textContent='Utilise le GPS de votre appareil';
+  $('gpsStatus').style.color='rgba(255,255,255,.2)';
+  $('mapResult').style.display='none';
+  $('manualResult').style.display='none';
+}
+
 function startGPS(){
-  const box=document.getElementById('gpsBox');
-  const lbl=document.getElementById('gpsLbl');
-  const ico=document.getElementById('gpsIco');
-  const status=document.getElementById('gpsStatus');
-
   if(!navigator.geolocation){
-    status.textContent='❌ GPS non supporté par ce navigateur';
-    status.style.color='var(--pink)';
-    return;
+    $('gpsStatus').textContent='❌ GPS non supporté par ce navigateur';
+    $('gpsStatus').style.color='var(--pk)';return;
   }
-
-  ico.textContent='⏳';
-  lbl.textContent='LOCALISATION EN COURS…';
-  status.textContent='Veuillez autoriser l\'accès à votre position';
-  status.style.color='var(--gold)';
-  box.style.pointerEvents='none';
+  $('gpsIco').textContent='⏳';
+  $('gpsLbl').textContent='LOCALISATION EN COURS…';
+  $('gpsStatus').textContent='Autorisez l\'accès à votre position';
+  $('gpsStatus').style.color='var(--go)';
+  $('gpsBox').style.pointerEvents='none';
 
   navigator.geolocation.getCurrentPosition(
-    async (pos)=>{
-      const {latitude:lat, longitude:lon} = pos.coords;
-      // Reverse geocode via Nominatim (OpenStreetMap, gratuit)
+    async pos=>{
+      const {latitude:lat,longitude:lng}=pos.coords;
+      let addr=`${lat.toFixed(5)}, ${lng.toFixed(5)}`;
       try{
-        const r = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`);
-        const d = await r.json();
-        const addr = d.display_name || `${lat.toFixed(5)}, ${lon.toFixed(5)}`;
-        showGPSResult(addr, lat, lon);
-      }catch{
-        showGPSResult(`${lat.toFixed(5)}, ${lon.toFixed(5)}`, lat, lon);
-      }
+        const r=await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&accept-language=fr`);
+        const d=await r.json();
+        if(d.display_name)addr=d.display_name;
+      }catch{}
+      $('gpsBox').style.display='none';
+      $('gpsResult').style.display='block';
+      $('gpsAddr').textContent=addr;
+      $('gpsCoords').textContent=`${lat.toFixed(6)}, ${lng.toFixed(6)}`;
+      locConfirmed=true;
     },
-    (err)=>{
-      ico.textContent='❌';
-      lbl.textContent='ACCÈS REFUSÉ OU ERREUR GPS';
-      const msgs={1:'Permission refusée. Autorisez la localisation dans votre navigateur.',2:'Position introuvable.',3:'Délai dépassé.'};
-      status.textContent=msgs[err.code]||'Erreur inconnue. Utilisez la carte ou la saisie manuelle.';
-      status.style.color='var(--pink)';
-      box.style.pointerEvents='auto';
+    err=>{
+      $('gpsIco').textContent='❌';
+      $('gpsLbl').textContent='ERREUR DE LOCALISATION';
+      const msgs={1:'Permission refusée — utilisez la carte ou saisie manuelle.',2:'Position introuvable.',3:'Délai dépassé.'};
+      $('gpsStatus').textContent=msgs[err.code]||'Erreur. Utilisez la carte ou la saisie manuelle.';
+      $('gpsStatus').style.color='var(--pk)';
+      $('gpsBox').style.pointerEvents='auto';
     },
-    {enableHighAccuracy:true, timeout:10000}
+    {enableHighAccuracy:true,timeout:12000}
   );
 }
 
-function showGPSResult(addr, lat, lon){
-  document.getElementById('gpsBox').style.display='none';
-  const res=document.getElementById('gpsResult');
-  res.style.display='block';
-  document.getElementById('gpsAddr').textContent=addr;
-  document.getElementById('gpsCoords').textContent=`${lat.toFixed(6)}, ${lon.toFixed(6)}`;
-  locConfirmed=true;
-}
-
-/* MAP — Leaflet + OpenStreetMap */
 function initMap(){
-  if(leafletMap) return; // already init
-
-  // Load Leaflet CSS + JS dynamically
-  if(!document.getElementById('leaflet-css')){
-    const css=document.createElement('link');
-    css.id='leaflet-css';css.rel='stylesheet';
-    css.href='https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css';
-    document.head.appendChild(css);
+  if(leafletMap)return;
+  // Load Leaflet CSS
+  if(!document.getElementById('lcss')){
+    const l=document.createElement('link');
+    l.id='lcss';l.rel='stylesheet';
+    l.href='https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css';
+    document.head.appendChild(l);
   }
-
-  const loadLeaflet = ()=> new Promise(res=>{
+  const loadL=()=>new Promise(res=>{
     if(window.L){res();return;}
     const s=document.createElement('script');
     s.src='https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js';
     s.onload=res;document.head.appendChild(s);
   });
-
-  loadLeaflet().then(()=>{
-    const mapEl=document.getElementById('leafletMap');
-    leafletMap=L.map(mapEl,{zoomControl:true}).setView([46.8,1.9],5);
-
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
-      attribution:'© OpenStreetMap',maxZoom:19
-    }).addTo(leafletMap);
-
-    // Custom dark marker
+  loadL().then(()=>{
+    leafletMap=L.map('leafletMap',{zoomControl:true,tap:true}).setView([46.8,1.9],5);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OSM',maxZoom:19}).addTo(leafletMap);
     const icon=L.divIcon({
-      html:`<div style="width:22px;height:22px;background:var(--pink);border-radius:50% 50% 50% 0;transform:rotate(-45deg);border:2px solid #fff;box-shadow:0 0 14px var(--pink);"></div>`,
-      iconSize:[22,22],iconAnchor:[11,22],className:''
+      html:`<div style="width:20px;height:20px;background:var(--pk);border-radius:50% 50% 50% 0;transform:rotate(-45deg);border:2px solid #fff;box-shadow:0 0 12px var(--pk);"></div>`,
+      iconSize:[20,20],iconAnchor:[10,20],className:''
     });
-
-    leafletMap.on('click', async (e)=>{
+    leafletMap.on('click',async e=>{
       const {lat,lng}=e.latlng;
-      if(leafletMarker) leafletMarker.setLatLng([lat,lng]);
+      if(leafletMarker)leafletMarker.setLatLng([lat,lng]);
       else leafletMarker=L.marker([lat,lng],{icon}).addTo(leafletMap);
-
-      // Reverse geocode
+      let addr=`${lat.toFixed(5)}, ${lng.toFixed(5)}`;
       try{
-        const r=await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`);
+        const r=await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&accept-language=fr`);
         const d=await r.json();
-        const addr=d.display_name||`${lat.toFixed(5)}, ${lng.toFixed(5)}`;
-        document.getElementById('mapAddr').textContent=addr;
-      }catch{
-        document.getElementById('mapAddr').textContent=`${lat.toFixed(5)}, ${lng.toFixed(5)}`;
-      }
-      document.getElementById('mapResult').style.display='block';
+        if(d.display_name)addr=d.display_name;
+      }catch{}
+      $('mapAddr').textContent=addr;
+      $('mapResult').style.display='block';
       locConfirmed=true;
     });
-
-    // Try to center on user if permission already given
-    navigator.geolocation && navigator.geolocation.getCurrentPosition(p=>{
+    navigator.geolocation&&navigator.geolocation.getCurrentPosition(p=>{
       leafletMap.setView([p.coords.latitude,p.coords.longitude],14);
     },()=>{});
-
-    // Force redraw after modal animation
-    setTimeout(()=>leafletMap.invalidateSize(),350);
+    setTimeout(()=>leafletMap.invalidateSize(),300);
   });
 }
 
-/* MANUAL */
 function validateManual(){
-  const a=document.getElementById('manualAddr').value.trim();
-  const c=document.getElementById('manualCity').value.trim();
-  const z=document.getElementById('manualZip').value.trim();
-  if(!a||!c){showToast('Renseignez au minimum la rue et la ville','err');return;}
-  const full=`${a}, ${z} ${c}`.trim();
-  document.getElementById('manualAddr2').textContent=full;
-  document.getElementById('manualResult').style.display='block';
-  locConfirmed=true;
-  showToast('Adresse enregistrée ✓');
+  const a=$('manualAddr').value.trim(),c=$('manualCity').value.trim(),z=$('manualZip').value.trim();
+  if(!a||!c){toast('Renseignez la rue et la ville','err');return;}
+  $('manualAddr2').textContent=`${a}, ${z} ${c}`.trim();
+  $('manualResult').style.display='block';
+  locConfirmed=true;toast('Adresse enregistrée ✓');
 }
 
-/* cleanup map on modal close */
-function closeCheckout(){
-  document.getElementById('checkoutModal').classList.remove('open');
-  document.body.style.overflow='';
+/* ════ TOAST ════ */
+let toastEl=null,toastTimer=null;
+function toast(msg,type='ok'){
+  if(toastEl){toastEl.remove();clearTimeout(toastTimer);}
+  toastEl=document.createElement('div');
+  toastEl.className='toast';
+  const col=type==='ok'?'var(--gr)':'var(--pk)';
+  const bg=type==='ok'?'rgba(57,255,20,.12)':'rgba(255,0,110,.12)';
+  toastEl.style.cssText=`background:${bg};border:1px solid ${col};color:${col};`;
+  toastEl.textContent=msg;
+  document.body.appendChild(toastEl);
+  toastTimer=setTimeout(()=>{toastEl&&toastEl.classList.add('hide');setTimeout(()=>{toastEl&&toastEl.remove();toastEl=null;},380);},2000);
 }
 
-/* AGE GATE */
+/* ════ FILTERS ════ */
+function filterCat(btn,cat){
+  document.querySelectorAll('.cat').forEach(c=>c.classList.remove('on'));
+  btn.classList.add('on');
+  renderProducts(cat);
+}
+
+/* ════ CARD FORMATTING ════ */
+$('fCard')&&$('fCard').addEventListener('input',e=>{
+  let v=e.target.value.replace(/\D/g,'').substring(0,16);
+  e.target.value=v.replace(/(.{4})/g,'$1 ').trim();
+});
+$('fExp')&&$('fExp').addEventListener('input',e=>{
+  let v=e.target.value.replace(/\D/g,'').substring(0,4);
+  if(v.length>=2)v=v.substring(0,2)+' / '+v.substring(2);
+  e.target.value=v;
+});
+
+/* ════ AGE GATE ════ */
 function enterSite(){
-  const gate=document.getElementById('ageGate');
-  gate.style.opacity='0';
+  const g=$('ageGate');g.style.opacity='0';
   setTimeout(()=>{
-    gate.style.display='none';
-    const site=document.getElementById('mainSite');
-    site.style.display='block';
-    requestAnimationFrame(()=>requestAnimationFrame(()=>site.style.opacity='1'));
-  },800);
+    g.style.display='none';
+    const s=$('mainSite');s.style.display='block';
+    requestAnimationFrame(()=>requestAnimationFrame(()=>s.style.opacity='1'));
+  },600);
 }
 function exitSite(){alert('Ce site est réservé aux personnes majeures.');}
 
+/* ════ SWIPE TO CLOSE DRAWER ON MOBILE ════ */
+(()=>{
+  let startX=0;
+  const drawer=document.querySelector('.drawer');
+  drawer.addEventListener('touchstart',e=>{startX=e.touches[0].clientX;},{passive:true});
+  drawer.addEventListener('touchend',e=>{
+    if(e.changedTouches[0].clientX-startX>60)closeCart();
+  },{passive:true});
+})();
+
+/* ════ SWIPE TO CLOSE MODAL ON MOBILE ════ */
+(()=>{
+  let startY=0;
+  const modal=document.getElementById('modalInner');
+  modal.addEventListener('touchstart',e=>{startY=e.touches[0].clientY;},{passive:true});
+  modal.addEventListener('touchend',e=>{
+    if(e.changedTouches[0].clientY-startY>80)closeCheckout();
+  },{passive:true});
+})();
+
+/* ════ INIT ════ */
 renderProducts();
 </script>
 </body>
