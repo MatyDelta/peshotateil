@@ -1417,42 +1417,104 @@ function redeemReward(cost,name){
 }
 
 /* ══════════════════════════════════════
-   SUIVI MULTI-COMMANDES
+   SUIVI MULTI-COMMANDES — PERSISTANT
+   On stocke dans localStorage :
+   - l'heure de départ (startTs)
+   - la durée totale (etaSeconds)
+   → au rechargement on recalcule le temps restant
 ══════════════════════════════════════ */
-// activeOrders = [{id, eta, etaStart, total, name, items, stepIdx, done, ts}]
 let activeOrders=[];
 let trackInterval=null;
 
+/* ── Sauvegarde des commandes actives ── */
+function saveOrders(){
+  try{
+    // On ne sauvegarde que les infos nécessaires (pas les fonctions)
+    const toSave=activeOrders.map(o=>({
+      id:o.id,
+      etaSeconds:o.etaSeconds,
+      startTs:o.startTs,       // timestamp de départ en ms
+      total:o.total,
+      name:o.name,
+      itemsSimple:o.items.map(({p,q})=>({icon:p.icon,name:p.name,price:p.price,q})),
+    }));
+    localStorage.setItem('ptt_orders',JSON.stringify(toSave));
+  }catch(e){}
+}
+
+/* ── Restauration des commandes au chargement ── */
+function loadOrders(){
+  try{
+    const saved=JSON.parse(localStorage.getItem('ptt_orders')||'[]');
+    const now=Date.now();
+    activeOrders=saved.map(o=>{
+      const elapsed=Math.floor((now-o.startTs)/1000); // secondes écoulées
+      const remaining=Math.max(0, o.etaSeconds-elapsed);
+      const done=remaining<=0;
+      const prog=1-(remaining/o.etaSeconds);
+      let stepIdx=0;
+      if(done)stepIdx=3;
+      else if(prog>=0.6)stepIdx=2;
+      else if(prog>=0.25)stepIdx=1;
+      return{
+        id:o.id,
+        etaSeconds:o.etaSeconds,
+        startTs:o.startTs,
+        remaining,
+        total:o.total,
+        name:o.name,
+        // reconstruire items depuis itemsSimple
+        items:o.itemsSimple.map(i=>({p:{icon:i.icon,name:i.name,price:i.price},q:i.q})),
+        stepIdx,
+        done,
+      };
+    });
+    // nettoyer les commandes livrées depuis plus de 2h
+    const TWO_HOURS=7200;
+    activeOrders=activeOrders.filter(o=>{
+      if(!o.done)return true;
+      const deliveredSec=Math.floor((Date.now()-o.startTs)/1000)-o.etaSeconds;
+      return deliveredSec<TWO_HOURS;
+    });
+  }catch(e){
+    activeOrders=[];
+  }
+}
+
+/* ── Ajouter une nouvelle commande au suivi ── */
 function addOrderToTrack(order){
   activeOrders.push({
     id:order.id,
     etaSeconds:order.eta*60,
+    startTs:Date.now(),
     remaining:order.eta*60,
     total:order.total,
     name:order.name,
     items:order.items,
     stepIdx:0,
     done:false,
-    ts:Date.now()
   });
+  saveOrders();
   updateTrackBadge();
   startTrackInterval();
 }
 
+/* ── Badge nav ── */
 function updateTrackBadge(){
   const live=activeOrders.filter(o=>!o.done).length;
   const btn=$('btnTrackNav');
-  $('trackBadge').textContent=live;
+  $('trackBadge').textContent=live>0?live:activeOrders.length;
   btn.style.display=activeOrders.length>0?'flex':'none';
 }
 
+/* ── Boucle 1s ── */
 function startTrackInterval(){
-  if(trackInterval)return; // already running
+  if(trackInterval)return;
   trackInterval=setInterval(()=>{
     let anyActive=false;
     activeOrders.forEach(o=>{
       if(o.done)return;
-      o.remaining--;
+      o.remaining=Math.max(0, o.etaSeconds-Math.floor((Date.now()-o.startTs)/1000));
       const prog=1-(o.remaining/o.etaSeconds);
       if(prog>=1){o.remaining=0;o.done=true;o.stepIdx=3;}
       else if(prog>=0.6)o.stepIdx=2;
@@ -1460,30 +1522,25 @@ function startTrackInterval(){
       else o.stepIdx=0;
       if(!o.done)anyActive=true;
     });
+    saveOrders(); // sauvegarde continue (throttlée en pratique par le 1s)
     updateTrackBadge();
-    // si le panel est ouvert, re-render
     if($('trackOv').classList.contains('on'))renderTrackPanel();
-    // si plus aucune commande active, stop interval
-    if(!anyActive){clearInterval(trackInterval);trackInterval=null;}
+    if(!anyActive&&activeOrders.every(o=>o.done)){
+      clearInterval(trackInterval);trackInterval=null;
+    }
   },1000);
 }
 
+/* ── Panel UI ── */
 function openTrackPanel(){
   renderTrackPanel();
   $('trackOv').classList.add('on');
   document.body.style.overflow='hidden';
-  adjustTrackPanelTop();
+  adjustNavTop();
 }
 function closeTrackPanel(){
   $('trackOv').classList.remove('on');
   document.body.style.overflow='';
-}
-function adjustTrackPanelTop(){
-  const bh=$('statusBanner').offsetHeight;
-  const nh=$('mainNav').offsetHeight;
-  const top=bh+nh;
-  $('trackPanel').style.top=top+'px';
-  $('trackOv').style.top=top+'px';
 }
 
 $('trackOv').addEventListener('click',e=>{if(e.target===$('trackOv'))closeTrackPanel();});
@@ -1494,21 +1551,22 @@ function renderTrackPanel(){
     body.innerHTML='<div class="track-empty"><div class="te-ico">📡</div><p>AUCUNE LIVRAISON EN COURS</p></div>';
     return;
   }
+  const stepNames=['Commande reçue','Préparation','En route','Livré'];
+  const stepIcons=['📋','📦','🛵','🎉'];
   body.innerHTML=activeOrders.slice().reverse().map(o=>{
     const m=Math.floor(o.remaining/60);
     const s=o.remaining%60;
     const timeStr=o.done?'LIVRÉ':m>0?m+'\''+String(s).padStart(2,'0'):s+'\'\'';
     const pct=o.done?1:1-(o.remaining/o.etaSeconds);
     const circum=138;
-    const offset=circum*(1-pct);
-    const progColor=o.done?'var(--bl)':o.remaining<=60?'var(--gr)':o.remaining<=5*60?'var(--go)':'var(--gr)';
-    const stepNames=['Commande reçue','Préparation','En route','Livré'];
-    const stepIcons=['📋','📦','🛵','🎉'];
+    const offset=Math.max(0,circum*(1-pct));
+    const progColor=o.done?'var(--bl)':o.remaining<=60?'var(--gr)':o.remaining<=300?'var(--go)':'var(--gr)';
     const steps=stepNames.map((n,i)=>{
       const cls=i<o.stepIdx?'done':i===o.stepIdx?'active':'pending';
       const icon=i<o.stepIdx?'✓':i===o.stepIdx?'●':'○';
       return`<div class="ts-mini ${cls}"><div class="tsi">${icon}</div><span class="tsn">${stepIcons[i]} ${n}</span></div>`;
     }).join('');
+    const itemPreview=o.items.slice(0,2).map(({p,q})=>p.icon+' ×'+q).join('  ')+(o.items.length>2?' +'+( o.items.length-2)+'…':'');
     return`<div class="tcard ${o.done?'done-order':'active-order'}">
       <div class="tcard-head">
         <span class="tcard-id">${o.id}</span>
@@ -1516,27 +1574,25 @@ function renderTrackPanel(){
         <span class="tcard-total">${o.total}€</span>
       </div>
       <div class="tcard-timer">
-        <div class="tcard-ring">
-          <svg viewBox="0 0 54 54">
-            <circle class="tcr-bg" cx="27" cy="27" r="22"/>
-            <circle class="tcr-prog" cx="27" cy="27" r="22" style="stroke:${progColor};stroke-dashoffset:${offset};"/>
+        <div style="position:relative;width:54px;height:54px;flex-shrink:0;">
+          <svg viewBox="0 0 54 54" style="width:54px;height:54px;transform:rotate(-90deg);">
+            <circle cx="27" cy="27" r="22" fill="none" stroke="rgba(255,255,255,.05)" stroke-width="5"/>
+            <circle cx="27" cy="27" r="22" fill="none" stroke="${progColor}" stroke-width="5"
+              stroke-linecap="round" stroke-dasharray="138" stroke-dashoffset="${offset}"
+              style="transition:stroke-dashoffset 1s linear;"/>
           </svg>
-          <div style="position:absolute;top:0;left:0;width:54px;height:54px;display:flex;align-items:center;justify-content:center;">
-            <span style="font-family:'Bebas Neue',cursive;font-size:.9rem;line-height:1;">${timeStr}</span>
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;">
+            <span style="font-family:'Bebas Neue',cursive;font-size:.88rem;line-height:1;white-space:nowrap;">${timeStr}</span>
           </div>
         </div>
-        <div style="flex:1;min-width:0;">
-          <div style="font-size:.65rem;color:rgba(255,255,255,.4);margin-bottom:3px;">${o.name}</div>
-          <div style="font-size:.7rem;color:rgba(255,255,255,.6);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
-            ${o.items.slice(0,2).map(({p,q})=>p.icon+' ×'+q).join('  ')}${o.items.length>2?' +'+( o.items.length-2)+'…':''}
-          </div>
+        <div style="flex:1;min-width:0;padding-left:2px;">
+          <div style="font-size:.62rem;color:rgba(255,255,255,.38);margin-bottom:3px;">${o.name}</div>
+          <div style="font-size:.68rem;color:rgba(255,255,255,.58);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${itemPreview}</div>
         </div>
       </div>
       <div class="tcard-steps">${steps}</div>
     </div>`;
   }).join('');
-  // fix position des circles (SVG relatifs)
-  body.querySelectorAll('.tcard-ring').forEach(ring=>{ring.style.position='relative';});
 }
 
 /* ══════════════════════════════════════
@@ -1776,13 +1832,20 @@ function enterSite(){
 /* ══════════════════════════════════════
    INIT
 ══════════════════════════════════════ */
-// Code parrainage affiché
 $('parrainCode').textContent=STATE.parrainCode;
 $('profParrainCode')&&($('profParrainCode').textContent=STATE.parrainCode);
 
 checkService();
 setInterval(checkService,60000);
 window.addEventListener('resize', adjustNavTop, {passive:true});
+
+// ── Restaurer les commandes actives depuis localStorage ──
+loadOrders();
+if(activeOrders.length){
+  updateTrackBadge();
+  // Reprendre le timer si des commandes sont encore en cours
+  if(activeOrders.some(o=>!o.done)) startTrackInterval();
+}
 
 renderP();
 adjustNavTop();
