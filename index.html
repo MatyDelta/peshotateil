@@ -1285,12 +1285,18 @@ $('overlay').addEventListener('click',e=>{if(e.target===$('overlay'))closeCart()
 function renderDrawer(){
   const body=$('drawerBody'),foot=$('drawerFoot'),reco=$('recoSection');
   const ids=Object.keys(cart);
-  if(!ids.length){
+  const hasItems=ids.length>0||rewardCart.length>0;
+
+  if(!hasItems){
     body.innerHTML='<div class="empty-cart"><div class="ei">🛒</div><p>PANIER VIDE</p><p style="margin-top:5px;font-size:.5rem;opacity:.45;">Ajoutez des bouteilles</p></div>';
-    foot.style.display='none';reco.style.display='none';return;
+    foot.style.display='none';reco.style.display='none';
+    $('ptsRedeemSection').style.display='none';
+    return;
   }
   foot.style.display='block';
-  body.innerHTML=ids.map(id=>{
+
+  // ── Articles normaux ──
+  const normalHTML=ids.map(id=>{
     const p=gp(+id);if(!p)return'';const q=cart[id];
     return`<div class="ci">
       <div class="ci-ico">${p.icon}</div>
@@ -1304,26 +1310,43 @@ function renderDrawer(){
       <button class="ci-del" onclick="delItem(${p.id})">✕</button>
     </div>`;
   }).join('');
-  // points redemption
+
+  // ── Récompenses points ──
+  const rewardHTML=rewardCart.map(r=>`
+    <div class="ci" style="border-color:rgba(255,215,0,.3);background:rgba(255,215,0,.05);">
+      <div class="ci-ico">${r.ico}</div>
+      <div class="ci-info">
+        <div class="ci-name" style="color:var(--go);">${r.name}</div>
+        <div class="ci-unit" style="color:rgba(255,215,0,.6);">🏆 Récompense points — ${r.pts} pts utilisés</div>
+      </div>
+      <div class="ci-price" style="color:var(--go);">OFFERT</div>
+      <button class="ci-del" onclick="removeReward('${r.id}')" title="Retirer (points remboursés)">✕</button>
+    </div>`).join('');
+
+  body.innerHTML=normalHTML+rewardHTML;
+
+  // ── Section utiliser ses points ──
   const ptsSection=$('ptsRedeemSection');
   const pts=STATE.pts;
-  const redeemable=REWARDS.filter(r=>pts>=r.pts);
-  if(redeemable.length&&ids.length){
+  if(ids.length>0&&REWARDS.some(r=>pts>=r.pts)){
     ptsSection.style.display='block';
     $('ptsRedeemBalance').textContent=pts+' pts';
     $('ptsRewardList').innerHTML=REWARDS.slice(0,5).map(r=>{
       const canUse=pts>=r.pts;
-      return`<div class="pts-reward-btn ${canUse?'unlocked':'locked'}" onclick="${canUse?'redeemReward('+r.pts+',\''+r.name+'\')':''}">
+      const alreadyAdded=rewardCart.some(x=>x.name===r.name);
+      const cls=alreadyAdded?'locked':canUse?'unlocked':'locked';
+      const label=alreadyAdded?'AJOUTÉ':r.pts+' pts';
+      return`<div class="pts-reward-btn ${cls}" onclick="${(!alreadyAdded&&canUse)?'redeemReward('+r.pts+',\''+r.name+'\',\''+r.ico+'\')':''}">
         <div class="prb-ico">${r.ico}</div>
         <div class="prb-name">${r.name.split(' ').slice(0,2).join(' ')}</div>
-        <div class="prb-cost ${canUse?'':'locked'}">${r.pts} pts</div>
+        <div class="prb-cost ${canUse&&!alreadyAdded?'':'locked'}">${label}</div>
       </div>`;
     }).join('');
   }else{
     ptsSection.style.display='none';
   }
 
-  // recommandations
+  // ── Recommandations ──
   const inCart=ids.map(Number);
   const suggestions=PRODUCTS.filter(p=>!inCart.includes(p.id)).sort(()=>Math.random()-.5).slice(0,4);
   if(suggestions.length){
@@ -1335,9 +1358,11 @@ function renderDrawer(){
         <div class="reco-p">${p.price}€</div>
       </div>`).join('');
   }else reco.style.display='none';
+
   const t=total();
   $('totals').innerHTML=`
     <div class="tr"><span>Sous-total</span><span class="v">${t}€</span></div>
+    ${rewardCart.length?`<div class="tr" style="color:var(--go);"><span>🏆 Récompenses (${rewardCart.length})</span><span class="v">OFFERT</span></div>`:''}
     <div class="tr"><span>Livraison</span><span class="v" style="color:var(--gr)">OFFERTE</span></div>
     <div class="tr main"><span>TOTAL</span><span class="v">${t}€</span></div>`;
   $('ptsInfo').textContent='★ +'+t+' points pour cette commande';
@@ -1347,7 +1372,7 @@ function renderDrawer(){
    CHECKOUT
 ══════════════════════════════════════ */
 function openCheckout(){
-  if(!count())return;
+  if(!count()&&!rewardCart.length)return;
   closeCart();resetLoc();
   const t=total();
   $('payAmt').textContent=t+'€';
@@ -1355,14 +1380,18 @@ function openCheckout(){
     const p=gp(+id);
     return p?`<div class="rc"><span>${p.icon} ${p.name} ×${q}</span><span class="v">${p.price*q}€</span></div>`:'';
   }).join('');
+  const rewardRows=rewardCart.map(r=>`
+    <div class="rc" style="color:var(--go);">
+      <span>${r.ico} ${r.name} <span style="font-size:.55rem;opacity:.6;">(${r.pts} pts)</span></span>
+      <span class="v" style="color:var(--go);">OFFERT</span>
+    </div>`).join('');
   $('recap').innerHTML=`
-    <div class="recap-ttl">RÉCAPITULATIF</div>${rows}
+    <div class="recap-ttl">RÉCAPITULATIF</div>
+    ${rows}${rewardRows}
     <div class="rc"><span>Livraison express</span><span style="color:var(--gr);font-family:'Orbitron',sans-serif;font-size:.65rem;">OFFERTE</span></div>
     <div class="rc-total"><span class="lbl">TOTAL</span><span class="amt">${t}€</span></div>
     <div style="font-size:.6rem;color:var(--gr);margin-top:4px;">★ +${t} points crédités après livraison</div>`;
-  // pré-remplir nom/téléphone si déjà dans l'historique
   if(STATE.history.length){const last=STATE.history[STATE.history.length-1];if(last.name)$('fName').value=last.name;if(last.phone)$('fPhone').value=last.phone;if(last.email)$('fEmail').value=last.email;}
-  // pré-remplir adresse sauvegardée
   if(STATE.savedAddr){$('mAddr').value=STATE.savedAddr;$('manAddr').textContent=STATE.savedAddr;$('manOk').style.display='block';}
   $('modalOv').classList.add('on');
   document.body.style.overflow='hidden';
@@ -1377,43 +1406,65 @@ function confirmOrder(){
   const t=total(),eta=40+Math.floor(Math.random()*18);
   const orderId=genOrderId();
   const orderItems=Object.entries(cart).map(([id,q])=>({p:gp(+id),q})).filter(x=>x.p);
+  // ajouter les récompenses aux items de la commande
+  rewardCart.forEach(r=>orderItems.push({p:{icon:r.ico,name:r.name,price:0},q:1}));
   const orderName=$('fName').value||'Client';
   currentOrder={id:orderId,eta,total:t,name:orderName,phone:$('fPhone').value,email:$('fEmail').value,items:orderItems,ts:Date.now()};
-  // save addr
   const addr=$('mAddr').value.trim()||$('gpsAddr').textContent||$('mapAddr').textContent;
   if(addr){STATE.savedAddr=addr;}
-  // add pts
   const prevPts=STATE.pts;
   STATE.pts+=t;
   if(STATE.history.length===0)STATE.pts+=10;
   const dow=new Date().getDay();
   if(dow===0||dow===6||dow===5)STATE.pts+=5;
-  // add to history
   STATE.history.push({id:orderId,total:t,pts:t,name:orderName,phone:currentOrder.phone,email:currentOrder.email,date:new Date().toLocaleDateString('fr-FR'),ts:Date.now()});
   saveState(STATE);
   closeCheckout();
-  // ajouter au suivi en temps réel
   addOrderToTrack(currentOrder);
   // confirmation screen
   $('confId').textContent=orderId;
   $('etaN').textContent=eta+' MIN';
   $('confPts').textContent='🏆 +'+t+' points ajoutés — Total : '+STATE.pts+' pts';
   $('conf').style.display='flex';
-  cart={};updateNav();
+  cart={};rewardCart=[];updateNav();
   checkRewardUnlock(prevPts,STATE.pts);
 }
 
 /* ══════════════════════════════════════
    UTILISATION DES POINTS
 ══════════════════════════════════════ */
-function redeemReward(cost,name){
+
+// Récompenses sous forme d'articles spéciaux dans le panier
+// On les stocke dans un objet séparé : rewardCart = [{id, name, ico, pts}]
+let rewardCart=[];
+
+function redeemReward(cost,name,ico){
   if(STATE.pts<cost){toast('Points insuffisants','err');return;}
+
+  // Vérifier si déjà ajouté (1 seule récompense identique à la fois)
+  const already=rewardCart.find(r=>r.name===name);
+  if(already){toast('Récompense déjà ajoutée au panier','err');return;}
+
   STATE.pts-=cost;
   saveState(STATE);
   updateNav();
+  rewardCart.push({id:'rwd_'+Date.now(),name,ico,pts:cost});
   renderDrawer();
-  toast('✅ '+name+' ajouté à votre commande !');
-  showNotif('🎁','RÉCOMPENSE UTILISÉE !',name+' sera ajouté à votre livraison.');
+  toast('🎁 '+name+' ajouté au panier !');
+  showNotif('🎁','RÉCOMPENSE AJOUTÉE !',name+' apparaît dans votre panier.');
+}
+
+function removeReward(id){
+  const r=rewardCart.find(x=>x.id===id);
+  if(r){
+    // rembourser les points
+    STATE.pts+=r.pts;
+    saveState(STATE);
+    updateNav();
+  }
+  rewardCart=rewardCart.filter(x=>x.id!==id);
+  renderDrawer();
+  toast('Récompense retirée — points remboursés');
 }
 
 /* ══════════════════════════════════════
