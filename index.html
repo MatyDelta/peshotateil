@@ -607,6 +607,102 @@ footer{position:relative;z-index:1;background:rgba(4,4,10,.98);border-top:1px so
 ::-webkit-scrollbar{width:4px;}
 ::-webkit-scrollbar-track{background:var(--bg);}
 ::-webkit-scrollbar-thumb{background:rgba(0,245,255,.18);border-radius:2px;}
+
+/* ══ NAV TRACK BUTTON ══ */
+.btn-track-nav{display:flex;align-items:center;gap:5px;background:rgba(255,215,0,.1);border:1px solid rgba(255,215,0,.35);color:var(--go);padding:6px 11px;border-radius:6px;font-family:'Orbitron',sans-serif;font-size:.55rem;letter-spacing:1px;touch-action:manipulation;}
+
+/* ══ POINTS REDEMPTION IN DRAWER ══ */
+.pts-redeem{padding:10px 14px;border-top:1px solid rgba(255,255,255,.07);flex-shrink:0;background:rgba(255,215,0,.04);}
+.pts-redeem-title{font-family:'Orbitron',sans-serif;font-size:.48rem;letter-spacing:2px;color:var(--go);margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;}
+.pts-redeem-title span{color:rgba(255,255,255,.35);}
+.pts-reward-list{display:flex;gap:6px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:3px;}
+.pts-reward-list::-webkit-scrollbar{display:none;}
+.pts-reward-btn{
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);
+  border-radius:7px;padding:8px 10px;text-align:center;
+  flex-shrink:0;min-width:80px;cursor:pointer;touch-action:manipulation;
+  transition:border-color .2s;
+}
+.pts-reward-btn.unlocked{border-color:rgba(255,215,0,.4);background:rgba(255,215,0,.06);}
+.pts-reward-btn.unlocked:active{transform:scale(.95);}
+.pts-reward-btn.locked{opacity:.4;cursor:not-allowed;}
+.prb-ico{font-size:1.4rem;margin-bottom:3px;}
+.prb-name{font-family:'Bebas Neue',cursive;font-size:.72rem;letter-spacing:1px;color:#fff;line-height:1.1;margin-bottom:2px;}
+.prb-cost{font-family:'Orbitron',sans-serif;font-size:.48rem;color:var(--go);}
+.prb-cost.locked{color:rgba(255,255,255,.28);}
+
+/* ══ TRACK PANEL (drawer latéral droite) ══ */
+.track-ov{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:850;opacity:0;pointer-events:none;transition:opacity .22s;}
+.track-ov.on{opacity:1;pointer-events:all;}
+.track-panel{
+  position:fixed;top:0;right:0;bottom:0;
+  width:min(100vw,400px);
+  background:#0f0f1e;
+  border-left:2px solid rgba(255,215,0,.3);
+  box-shadow:-8px 0 40px rgba(0,0,0,.8);
+  z-index:860;
+  display:flex;flex-direction:column;
+  transform:translateX(100%);
+  transition:transform .28s cubic-bezier(.4,0,.2,1);
+  will-change:transform;
+}
+.track-ov.on .track-panel{transform:translateX(0);}
+.track-panel-head{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 18px;
+  border-bottom:1px solid rgba(255,215,0,.15);
+  background:rgba(255,215,0,.05);
+  flex-shrink:0;
+}
+.track-panel-body{
+  flex:1;overflow-y:auto;padding:14px;
+  display:flex;flex-direction:column;gap:14px;
+  -webkit-overflow-scrolling:touch;
+}
+.track-panel-body::-webkit-scrollbar{width:3px;}
+.track-panel-body::-webkit-scrollbar-thumb{background:rgba(255,215,0,.2);}
+
+/* carte de suivi par commande */
+.tcard{
+  background:var(--c1);border:1px solid rgba(255,255,255,.08);
+  border-radius:10px;overflow:hidden;
+}
+.tcard.active-order{border-color:rgba(57,255,20,.3);}
+.tcard.done-order{border-color:rgba(0,245,255,.2);opacity:.75;}
+.tcard-head{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:11px 13px;
+  background:rgba(255,255,255,.03);
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.tcard-id{font-family:'Orbitron',sans-serif;font-size:.58rem;color:var(--bl);}
+.tcard-total{font-family:'Orbitron',sans-serif;font-size:.75rem;color:var(--go);}
+.tcard-status{font-size:.55rem;padding:3px 8px;border-radius:20px;font-family:'Orbitron',sans-serif;letter-spacing:1px;}
+.tcard-status.en-cours{background:rgba(57,255,20,.1);border:1px solid rgba(57,255,20,.3);color:var(--gr);}
+.tcard-status.livre{background:rgba(0,245,255,.1);border:1px solid rgba(0,245,255,.3);color:var(--bl);}
+
+/* timer mini */
+.tcard-timer{display:flex;align-items:center;gap:12px;padding:10px 13px;}
+.tcard-ring{flex-shrink:0;}
+.tcard-ring svg{width:54px;height:54px;transform:rotate(-90deg);}
+.tcr-bg{fill:none;stroke:rgba(255,255,255,.05);stroke-width:5;}
+.tcr-prog{fill:none;stroke:var(--gr);stroke-width:5;stroke-linecap:round;stroke-dasharray:138;transition:stroke-dashoffset 1s linear;}
+.tcr-inner{position:relative;}
+.tcr-num{font-family:'Bebas Neue',cursive;font-size:.95rem;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);white-space:nowrap;}
+/* étapes mini */
+.tcard-steps{padding:0 13px 11px;display:flex;flex-direction:column;gap:5px;}
+.ts-mini{display:flex;align-items:center;gap:8px;font-size:.7rem;}
+.ts-mini .tsi{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.6rem;flex-shrink:0;}
+.ts-mini.done .tsi{background:rgba(57,255,20,.15);border:1px solid var(--gr);color:var(--gr);}
+.ts-mini.active .tsi{background:rgba(0,245,255,.15);border:1px solid var(--bl);color:var(--bl);}
+.ts-mini.pending .tsi{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.25);}
+.ts-mini.done .tsn{color:rgba(255,255,255,.5);}
+.ts-mini.active .tsn{color:#fff;font-weight:700;}
+.ts-mini.pending .tsn{color:rgba(255,255,255,.28);}
+
+.track-empty{text-align:center;padding:40px 20px;color:rgba(255,255,255,.22);}
+.track-empty .te-ico{font-size:2.5rem;margin-bottom:10px;opacity:.3;}
+.track-empty p{font-family:'Orbitron',sans-serif;font-size:.52rem;letter-spacing:2px;}
 </style>
 </head>
 <body>
@@ -637,11 +733,16 @@ footer{position:relative;z-index:1;background:rgba(4,4,10,.98);border-top:1px so
 <nav id="mainNav">
   <a class="logo" href="#"><span class="lP">P</span><span>ESHO</span><span class="lT1">T</span><span>A</span><span class="lT2">T</span><span>EIL</span><span class="ltag">LIVRAISON 1H</span></a>
   <div class="nav-links">
-    <a href="#">Whiskies</a><a href="#">Champagnes</a><a href="#">Vins</a><a href="#">Bières</a><a href="#">Softs</a>
+    <a href="#vitrine" onclick="navFilter('whisky')">Whiskies</a>
+    <a href="#vitrine" onclick="navFilter('champagne')">Champagnes</a>
+    <a href="#vitrine" onclick="navFilter('vin')">Vins</a>
+    <a href="#vitrine" onclick="navFilter('biere')">Bières</a>
+    <a href="#vitrine" onclick="navFilter('gin')">Softs & Rhums</a>
   </div>
   <div class="nav-right">
     <button class="btn-pts pulse" onclick="openProfile()">★ <span id="navPts">0</span> PTS</button>
     <button class="btn-cart" onclick="openCart()">🛒 <span class="badge" id="cartBadge">0</span></button>
+    <button class="btn-track-nav" id="btnTrackNav" onclick="openTrackPanel()" title="Mes livraisons" style="display:none;">📡 <span class="badge" id="trackBadge" style="background:var(--go);color:#000;">0</span></button>
     <button class="btn-profile" onclick="openProfile()" title="Mon compte">👤</button>
   </div>
 </nav>
@@ -823,6 +924,10 @@ footer{position:relative;z-index:1;background:rgba(4,4,10,.98);border-top:1px so
   <div class="drawer" id="drawer">
     <div class="drawer-head"><h2>MON PANIER</h2><button class="d-x" onclick="closeCart()">✕</button></div>
     <div class="drawer-body" id="drawerBody"></div>
+    <div class="pts-redeem" id="ptsRedeemSection" style="display:none;">
+      <div class="pts-redeem-title">🏆 UTILISER MES POINTS <span id="ptsRedeemBalance">0 pts</span></div>
+      <div class="pts-reward-list" id="ptsRewardList"></div>
+    </div>
     <div class="reco-section" id="recoSection" style="display:none;">
       <div class="reco-title">VOUS AIMEREZ AUSSI</div>
       <div class="reco-list" id="recoList"></div>
@@ -930,24 +1035,18 @@ footer{position:relative;z-index:1;background:rgba(4,4,10,.98);border-top:1px so
   </div>
 </div>
 
-<!-- ══ SUIVI COMMANDE ══ -->
-<div id="trackScreen">
-  <div class="track-logo"><span class="lP">P</span><span>TT</span> <span style="color:var(--bl)">SUIVI</span></div>
-  <div class="track-num">NUMÉRO DE COMMANDE</div>
-  <div class="track-id" id="trackId">PTT-2025-00000</div>
-  <div class="track-circle">
-    <svg class="tc-svg" viewBox="0 0 160 160">
-      <circle class="tc-bg" cx="80" cy="80" r="70"/>
-      <circle class="tc-prog" id="tcProg" cx="80" cy="80" r="70"/>
-    </svg>
-    <div class="tc-inner">
-      <span class="tc-min" id="tcMin">--</span>
-      <span class="tc-lbl">MINUTES</span>
+<!-- ══ SUIVI MULTI-COMMANDES (panel latéral) ══ -->
+<div class="track-ov" id="trackOv">
+  <div class="track-panel" id="trackPanel">
+    <div class="track-panel-head">
+      <div>
+        <h2 style="font-family:'Bebas Neue',cursive;font-size:1.5rem;letter-spacing:4px;color:var(--go);">MES LIVRAISONS</h2>
+        <p style="font-size:.58rem;color:rgba(255,255,255,.3);letter-spacing:1px;margin-top:2px;">Suivi en temps réel</p>
+      </div>
+      <button class="d-x" onclick="closeTrackPanel()">✕</button>
     </div>
+    <div class="track-panel-body" id="trackPanelBody"></div>
   </div>
-  <div class="track-steps" id="trackSteps"></div>
-  <div class="track-order" id="trackOrder"></div>
-  <button class="btn-track-close" onclick="closeTrack()">FERMER LE SUIVI</button>
 </div>
 
 <!-- ══ PROFIL ══ -->
@@ -996,7 +1095,7 @@ footer{position:relative;z-index:1;background:rgba(4,4,10,.98);border-top:1px so
   </div>
   <div class="conf-pts" id="confPts">🏆 +0 points ajoutés</div>
   <div class="conf-btns">
-    <button class="btn-track-open" onclick="openTrack()">📡 SUIVRE MA LIVRAISON</button>
+    <button class="btn-track-open" onclick="$('conf').style.display='none';openTrackPanel();">📡 SUIVRE MA LIVRAISON</button>
     <button class="btn-conf-close" onclick="document.getElementById('conf').style.display='none'">FERMER</button>
   </div>
 </div>
@@ -1132,6 +1231,18 @@ function filterCat(btn,cat){
   document.querySelectorAll('.cat').forEach(c=>c.classList.remove('on'));
   btn.classList.add('on');renderP(cat);
 }
+function navFilter(cat){
+  // active le bon onglet catégorie
+  const cats=document.querySelectorAll('.cat');
+  cats.forEach(c=>{
+    c.classList.remove('on');
+    const onclick=c.getAttribute('onclick')||'';
+    if(onclick.includes("'"+cat+"'"))c.classList.add('on');
+  });
+  renderP(cat);
+  // scroll vers la vitrine après un tiny délai
+  setTimeout(()=>go('vitrine'),80);
+}
 
 /* ══════════════════════════════════════
    PANIER
@@ -1193,6 +1304,25 @@ function renderDrawer(){
       <button class="ci-del" onclick="delItem(${p.id})">✕</button>
     </div>`;
   }).join('');
+  // points redemption
+  const ptsSection=$('ptsRedeemSection');
+  const pts=STATE.pts;
+  const redeemable=REWARDS.filter(r=>pts>=r.pts);
+  if(redeemable.length&&ids.length){
+    ptsSection.style.display='block';
+    $('ptsRedeemBalance').textContent=pts+' pts';
+    $('ptsRewardList').innerHTML=REWARDS.slice(0,5).map(r=>{
+      const canUse=pts>=r.pts;
+      return`<div class="pts-reward-btn ${canUse?'unlocked':'locked'}" onclick="${canUse?'redeemReward('+r.pts+',\''+r.name+'\')':''}">
+        <div class="prb-ico">${r.ico}</div>
+        <div class="prb-name">${r.name.split(' ').slice(0,2).join(' ')}</div>
+        <div class="prb-cost ${canUse?'':'locked'}">${r.pts} pts</div>
+      </div>`;
+    }).join('');
+  }else{
+    ptsSection.style.display='none';
+  }
+
   // recommandations
   const inCart=ids.map(Number);
   const suggestions=PRODUCTS.filter(p=>!inCart.includes(p.id)).sort(()=>Math.random()-.5).slice(0,4);
@@ -1246,103 +1376,167 @@ function confirmOrder(){
   if(!$('cniOk').checked){toast('Confirmez avoir votre pièce d\'identité','err');return;}
   const t=total(),eta=40+Math.floor(Math.random()*18);
   const orderId=genOrderId();
-  currentOrder={
-    id:orderId,eta,total:t,
-    name:$('fName').value||'Client',
-    phone:$('fPhone').value,
-    email:$('fEmail').value,
-    items:Object.entries(cart).map(([id,q])=>({p:gp(+id),q})).filter(x=>x.p),
-    ts:Date.now()
-  };
+  const orderItems=Object.entries(cart).map(([id,q])=>({p:gp(+id),q})).filter(x=>x.p);
+  const orderName=$('fName').value||'Client';
+  currentOrder={id:orderId,eta,total:t,name:orderName,phone:$('fPhone').value,email:$('fEmail').value,items:orderItems,ts:Date.now()};
   // save addr
   const addr=$('mAddr').value.trim()||$('gpsAddr').textContent||$('mapAddr').textContent;
   if(addr){STATE.savedAddr=addr;}
   // add pts
   const prevPts=STATE.pts;
   STATE.pts+=t;
-  // bonus 1ère commande
   if(STATE.history.length===0)STATE.pts+=10;
-  // bonus weekend
   const dow=new Date().getDay();
   if(dow===0||dow===6||dow===5)STATE.pts+=5;
   // add to history
-  STATE.history.push({id:orderId,total:t,pts:t,name:currentOrder.name,phone:currentOrder.phone,email:currentOrder.email,date:new Date().toLocaleDateString('fr-FR'),ts:Date.now()});
+  STATE.history.push({id:orderId,total:t,pts:t,name:orderName,phone:currentOrder.phone,email:currentOrder.email,date:new Date().toLocaleDateString('fr-FR'),ts:Date.now()});
   saveState(STATE);
   closeCheckout();
+  // ajouter au suivi en temps réel
+  addOrderToTrack(currentOrder);
   // confirmation screen
   $('confId').textContent=orderId;
   $('etaN').textContent=eta+' MIN';
   $('confPts').textContent='🏆 +'+t+' points ajoutés — Total : '+STATE.pts+' pts';
   $('conf').style.display='flex';
   cart={};updateNav();
-  // check if reached a reward threshold
   checkRewardUnlock(prevPts,STATE.pts);
 }
 
 /* ══════════════════════════════════════
-   SUIVI COMMANDE
+   UTILISATION DES POINTS
 ══════════════════════════════════════ */
-function openTrack(){
-  if(!currentOrder)return;
-  $('conf').style.display='none';
-  $('trackId').textContent=currentOrder.id;
-  // order info
-  $('trackOrder').innerHTML=`
-    <div class="to-title">DÉTAILS DE LA COMMANDE</div>
-    ${currentOrder.items.map(({p,q})=>`<div class="to-row"><span>${p.icon} ${p.name} ×${q}</span><span class="v">${p.price*q}€</span></div>`).join('')}
-    <div class="to-row" style="margin-top:6px;"><span>Total payé</span><span class="v" style="color:var(--go)">${currentOrder.total}€</span></div>
-  `;
-  startTrackTimer(currentOrder.eta);
-  renderTrackSteps(0);
-  $('trackScreen').style.display='flex';
-}
-function closeTrack(){
-  $('trackScreen').style.display='none';
-  if(trackTimer)clearInterval(trackTimer);
+function redeemReward(cost,name){
+  if(STATE.pts<cost){toast('Points insuffisants','err');return;}
+  STATE.pts-=cost;
+  saveState(STATE);
+  updateNav();
+  renderDrawer();
+  toast('✅ '+name+' ajouté à votre commande !');
+  showNotif('🎁','RÉCOMPENSE UTILISÉE !',name+' sera ajouté à votre livraison.');
 }
 
-let trackRemaining=0;
-function startTrackTimer(etaMin){
-  trackRemaining=etaMin*60;
-  const total=trackRemaining;
-  const CIRCUMFERENCE=440;
-  updateTrackDisplay(trackRemaining,total,CIRCUMFERENCE);
-  if(trackTimer)clearInterval(trackTimer);
-  trackTimer=setInterval(()=>{
-    trackRemaining--;
-    if(trackRemaining<=0){clearInterval(trackTimer);renderTrackSteps(3);}
-    updateTrackDisplay(trackRemaining,total,CIRCUMFERENCE);
-    // update steps based on progress
-    const prog=1-(trackRemaining/total);
-    if(prog>0.25&&prog<=0.6)renderTrackSteps(1);
-    else if(prog>0.6&&prog<1)renderTrackSteps(2);
-    else if(prog>=1)renderTrackSteps(3);
+/* ══════════════════════════════════════
+   SUIVI MULTI-COMMANDES
+══════════════════════════════════════ */
+// activeOrders = [{id, eta, etaStart, total, name, items, stepIdx, done, ts}]
+let activeOrders=[];
+let trackInterval=null;
+
+function addOrderToTrack(order){
+  activeOrders.push({
+    id:order.id,
+    etaSeconds:order.eta*60,
+    remaining:order.eta*60,
+    total:order.total,
+    name:order.name,
+    items:order.items,
+    stepIdx:0,
+    done:false,
+    ts:Date.now()
+  });
+  updateTrackBadge();
+  startTrackInterval();
+}
+
+function updateTrackBadge(){
+  const live=activeOrders.filter(o=>!o.done).length;
+  const btn=$('btnTrackNav');
+  $('trackBadge').textContent=live;
+  btn.style.display=activeOrders.length>0?'flex':'none';
+}
+
+function startTrackInterval(){
+  if(trackInterval)return; // already running
+  trackInterval=setInterval(()=>{
+    let anyActive=false;
+    activeOrders.forEach(o=>{
+      if(o.done)return;
+      o.remaining--;
+      const prog=1-(o.remaining/o.etaSeconds);
+      if(prog>=1){o.remaining=0;o.done=true;o.stepIdx=3;}
+      else if(prog>=0.6)o.stepIdx=2;
+      else if(prog>=0.25)o.stepIdx=1;
+      else o.stepIdx=0;
+      if(!o.done)anyActive=true;
+    });
+    updateTrackBadge();
+    // si le panel est ouvert, re-render
+    if($('trackOv').classList.contains('on'))renderTrackPanel();
+    // si plus aucune commande active, stop interval
+    if(!anyActive){clearInterval(trackInterval);trackInterval=null;}
   },1000);
 }
-function updateTrackDisplay(rem,tot,circ){
-  const m=Math.floor(rem/60),s=rem%60;
-  $('tcMin').textContent=m>0?m+'\'':(s+'\'\'');
-  const pct=1-(rem/tot);
-  $('tcProg').style.strokeDashoffset=circ*(1-pct);
-  if(rem<=5*60)$('tcProg').style.stroke='var(--go)';
-  if(rem<=60)$('tcProg').style.stroke='var(--gr)';
+
+function openTrackPanel(){
+  renderTrackPanel();
+  $('trackOv').classList.add('on');
+  document.body.style.overflow='hidden';
+  adjustTrackPanelTop();
 }
-function renderTrackSteps(activeIdx){
-  const steps=[
-    {ico:'✅',name:'COMMANDE REÇUE',sub:'Votre commande a été validée'},
-    {ico:'📦',name:'PRÉPARATION',sub:'Vos articles sont en cours de préparation'},
-    {ico:'🛵',name:'EN ROUTE',sub:'Le livreur se dirige vers vous'},
-    {ico:'🎉',name:'LIVRÉ',sub:'Votre commande a été remise'},
-  ];
-  $('trackSteps').innerHTML=steps.map((s,i)=>{
-    const cls=i<activeIdx?'done':i===activeIdx?'active':'';
-    const check=i<activeIdx?'✅':i===activeIdx?'🔄':'⬜';
-    return`<div class="ts ${cls}">
-      <div class="ts-ico">${s.ico}</div>
-      <div class="ts-info"><div class="ts-name">${s.name}</div><div class="ts-sub">${s.sub}</div></div>
-      <div class="ts-check">${check}</div>
+function closeTrackPanel(){
+  $('trackOv').classList.remove('on');
+  document.body.style.overflow='';
+}
+function adjustTrackPanelTop(){
+  const bh=$('statusBanner').offsetHeight;
+  const nh=$('mainNav').offsetHeight;
+  const top=bh+nh;
+  $('trackPanel').style.top=top+'px';
+  $('trackOv').style.top=top+'px';
+}
+
+$('trackOv').addEventListener('click',e=>{if(e.target===$('trackOv'))closeTrackPanel();});
+
+function renderTrackPanel(){
+  const body=$('trackPanelBody');
+  if(!activeOrders.length){
+    body.innerHTML='<div class="track-empty"><div class="te-ico">📡</div><p>AUCUNE LIVRAISON EN COURS</p></div>';
+    return;
+  }
+  body.innerHTML=activeOrders.slice().reverse().map(o=>{
+    const m=Math.floor(o.remaining/60);
+    const s=o.remaining%60;
+    const timeStr=o.done?'LIVRÉ':m>0?m+'\''+String(s).padStart(2,'0'):s+'\'\'';
+    const pct=o.done?1:1-(o.remaining/o.etaSeconds);
+    const circum=138;
+    const offset=circum*(1-pct);
+    const progColor=o.done?'var(--bl)':o.remaining<=60?'var(--gr)':o.remaining<=5*60?'var(--go)':'var(--gr)';
+    const stepNames=['Commande reçue','Préparation','En route','Livré'];
+    const stepIcons=['📋','📦','🛵','🎉'];
+    const steps=stepNames.map((n,i)=>{
+      const cls=i<o.stepIdx?'done':i===o.stepIdx?'active':'pending';
+      const icon=i<o.stepIdx?'✓':i===o.stepIdx?'●':'○';
+      return`<div class="ts-mini ${cls}"><div class="tsi">${icon}</div><span class="tsn">${stepIcons[i]} ${n}</span></div>`;
+    }).join('');
+    return`<div class="tcard ${o.done?'done-order':'active-order'}">
+      <div class="tcard-head">
+        <span class="tcard-id">${o.id}</span>
+        <span class="tcard-status ${o.done?'livre':'en-cours'}">${o.done?'LIVRÉ':'EN COURS'}</span>
+        <span class="tcard-total">${o.total}€</span>
+      </div>
+      <div class="tcard-timer">
+        <div class="tcard-ring">
+          <svg viewBox="0 0 54 54">
+            <circle class="tcr-bg" cx="27" cy="27" r="22"/>
+            <circle class="tcr-prog" cx="27" cy="27" r="22" style="stroke:${progColor};stroke-dashoffset:${offset};"/>
+          </svg>
+          <div style="position:absolute;top:0;left:0;width:54px;height:54px;display:flex;align-items:center;justify-content:center;">
+            <span style="font-family:'Bebas Neue',cursive;font-size:.9rem;line-height:1;">${timeStr}</span>
+          </div>
+        </div>
+        <div style="flex:1;min-width:0;">
+          <div style="font-size:.65rem;color:rgba(255,255,255,.4);margin-bottom:3px;">${o.name}</div>
+          <div style="font-size:.7rem;color:rgba(255,255,255,.6);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
+            ${o.items.slice(0,2).map(({p,q})=>p.icon+' ×'+q).join('  ')}${o.items.length>2?' +'+( o.items.length-2)+'…':''}
+          </div>
+        </div>
+      </div>
+      <div class="tcard-steps">${steps}</div>
     </div>`;
   }).join('');
+  // fix position des circles (SVG relatifs)
+  body.querySelectorAll('.tcard-ring').forEach(ring=>{ring.style.position='relative';});
 }
 
 /* ══════════════════════════════════════
@@ -1544,6 +1738,12 @@ window.addEventListener('scroll',()=>{
   m.addEventListener('touchstart',e=>{sy=e.touches[0].clientY;},{passive:true});
   m.addEventListener('touchend',e=>{if(e.changedTouches[0].clientY-sy>70)closeProfile();},{passive:true});
 })();
+(()=>{
+  let sx=0;
+  const tp=$('trackPanel');
+  tp.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;},{passive:true});
+  tp.addEventListener('touchend',e=>{if(e.changedTouches[0].clientX-sx>55)closeTrackPanel();},{passive:true});
+})();
 
 /* ══════════════════════════════════════
    NAV HEIGHT — ajuster padding selon banner
@@ -1552,11 +1752,11 @@ function adjustNavTop(){
   const bh=$('statusBanner').offsetHeight;
   const nav=$('mainNav');
   nav.style.top=bh+'px';
-  // drawer commence juste sous la nav
-  const drawerTop=bh+nav.offsetHeight;
-  $('drawer').style.top=drawerTop+'px';
-  // overlay aussi sous les barres pour ne pas les masquer
-  $('overlay').style.top=drawerTop+'px';
+  const top=bh+nav.offsetHeight;
+  $('drawer').style.top=top+'px';
+  $('overlay').style.top=top+'px';
+  $('trackPanel').style.top=top+'px';
+  $('trackOv').style.top=top+'px';
 }
 
 /* ══════════════════════════════════════
